@@ -9,7 +9,7 @@ from matplotlib.patches import Rectangle
 import pandas as pd
 import seaborn as sns
 
-from src.csv_utils import CSVUtils
+from src.utils.csv_utils import CSVUtils
 
 def load_data(col, kernel="attn", raw_cb=None, data_cb=None, skip=set(), pregenerated=False):
     if pregenerated:
