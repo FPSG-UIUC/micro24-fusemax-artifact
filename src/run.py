@@ -5,6 +5,8 @@ from src.accel.flat_pe_proposal import FlatPEProposal
 from src.accel.proposal import Proposal
 from src.accel.stall_proposal import StallProposal
 from src.accel.unfused import Unfused
+import src.utils.graph as graph
+from src.utils.pareto import *
 
 
 def attn(accel):
@@ -14,10 +16,8 @@ def attn(accel):
     with open(output_dir + "/attn-" + accel + ".csv", "w") as f:
         f.write("model,seq_len,traffic,latency,energy,util_2d,util_1d,")
 
-    # models = ["BERT", "TrXL", "T5", "XLM"]
-    # seq_lens = ["1K", "4K", "16K", "64K", "256K", "1M"]
-    models = ["BERT"]
-    seq_lens = ["1K"]
+    models = ["BERT", "TrXL", "T5", "XLM"]
+    seq_lens = ["1K", "4K", "16K", "64K", "256K", "1M"]
 
     started = False
     for model in models:
@@ -146,6 +146,15 @@ def main():
     end2end("proposal")
 
     pareto()
+
+    graph.draw_bar_graph(graph.load_data("util_1d"), "Utilization 1D", "fig6a")
+    graph.draw_bar_graph(graph.load_data("util_2d"), "Utilization 2D", "fig6b")
+    graph.draw_breakdown()
+    graph.draw_bar_graph(graph.load_data("latency", data_cb=lambda a, u: u / a), "Speedup", "fig8")
+    graph.draw_bar_graph(graph.load_data("energy", data_cb=lambda a, u: a / u), "Energy Use", "fig9")
+    graph.draw_bar_graph(graph.load_data("latency", kernel="end2end", data_cb=lambda a, u: u / a), "Speedup", "fig10")
+    graph.draw_bar_graph(graph.load_data("energy", kernel="end2end", data_cb=lambda a, u: a / u), "Energy Use", "fig11")
+    graph.draw_pareto()
 
 if __name__ == "__main__":
     main()

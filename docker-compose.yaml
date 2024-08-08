@@ -30,7 +30,7 @@ services:
     hostname: accelergy-timeloop
     image: timeloopaccelergy/accelergy-timeloop-infrastructure:latest-${DOCKER_ARCH}
     volumes:
-      - .:/home/workspace
+      - .:/home/workspace/micro24-fusemax-artifact
     environment:
       - USER_UID=379165
       - USER_GID=379165
