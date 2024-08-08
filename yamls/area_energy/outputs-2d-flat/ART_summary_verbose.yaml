@@ -1,0 +1,64 @@
+ART_summary:
+    version: '0.4'
+    table_summary:
+      - name: system_top_level.DRAM[1..1]
+        area: 0.0
+        primitive_estimations: CactiDRAM
+      - name: system_top_level.inter_PE_col_spatial[1..1]
+        area: 1.0
+        primitive_estimations: dummy_table
+      - name: system_top_level.inter_PE_spatial[1..256]
+        area: 1.0
+        primitive_estimations: dummy_table
+      - name: system_top_level.global_buffer[1..1]
+        area: 94176255.9664
+        primitive_estimations:
+          - name: storage
+            estimator: CactiSRAM
+            area: 94176000.0
+            area_share: 1.0
+            total_component_area: 94176000.0
+          - name: address_generators[0..1]
+            estimator: Neurosim Plug-In
+            area: 127.9832
+            area_share: 1
+            total_component_area: 255.9664
+      - name: system_top_level.reg_file[1..65536]
+        area: 1838.14968
+        primitive_estimations:
+          - name: storage.storage[1..4096]
+            estimator: Library
+            area: 5.98
+            area_share: 0.0625
+            total_component_area: 1530.88
+          - name: storage.comparator[1..64]
+            estimator: Library
+            area: 71.0
+            area_share: 0.0625
+            total_component_area: 284.0
+          - name: address_generators[0..1]
+            estimator: Neurosim Plug-In
+            area: 11.63484
+            area_share: 1
+            total_component_area: 23.26968
+      - name: system_top_level.add[1..65536]
+        area: 1030.0
+        primitive_estimations:
+          - name: fpadder
+            estimator: Aladdin_table
+            area: 1030.0
+            area_share: 1
+            total_component_area: 1030.0
+      - name: system_top_level.mac[1..65536]
+        area: 1545.0
+        primitive_estimations:
+          - name: fpadder
+            estimator: Aladdin_table
+            area: 1030.0
+            area_share: 1
+            total_component_area: 1030.0
+          - name: fpmultiplier
+            estimator: Aladdin_table
+            area: 515.0
+            area_share: 1
+            total_component_area: 515.0

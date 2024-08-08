@@ -1,0 +1,492 @@
+ERT_summary:
+    version: '0.4'
+    table_summary:
+      - name: system_top_level.DRAM[1..1]
+        actions:
+          - name: write
+            energy: 249.6
+          - name: leak
+            energy: 0.0
+          - name: update
+            energy: 249.6
+          - name: read
+            energy: 249.6
+        primitive_estimation(s):
+          - system_top_level.DRAM[1..1]:
+                estimator: CactiDRAM
+      - name: system_top_level.global_buffer[1..1]
+        actions:
+          - name: write
+            energy: 451.30271
+          - name: read
+            energy: 484.97271
+          - name: leak
+            energy: 0.844117
+          - name: update
+            energy: 451.30271
+        primitive_estimation(s):
+          - action_name: write
+            arguments: {}
+            energy: 451.30271
+            subaction_estimations:
+              - subcomponent_name: storage
+                subaction_name: write
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 451.214
+                action_share: 1.0
+                interpreted_energy: 451.214
+                percentage: 99.98%
+                estimator: CactiSRAM
+              - subcomponent_name: address_generators[0]
+                subaction_name: add
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.08870982
+                action_share: 1.0
+                interpreted_energy: 0.08870982
+                percentage: 0.02%
+                estimator: Neurosim Plug-In
+          - action_name: read
+            arguments: {}
+            energy: 484.97271
+            subaction_estimations:
+              - subcomponent_name: storage
+                subaction_name: read
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 484.884
+                action_share: 1.0
+                interpreted_energy: 484.884
+                percentage: 99.98%
+                estimator: CactiSRAM
+              - subcomponent_name: address_generators[1]
+                subaction_name: add
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.08870982
+                action_share: 1.0
+                interpreted_energy: 0.08870982
+                percentage: 0.02%
+                estimator: Neurosim Plug-In
+          - action_name: leak
+            arguments: {}
+            energy: 0.844117
+            subaction_estimations:
+              - subcomponent_name: storage
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.8441000000523341
+                action_share: 1.0
+                interpreted_energy: 0.8441000000523341
+                percentage: 100.0%
+                estimator: CactiSRAM
+              - subcomponent_name: address_generators[0..1]
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 8.66377446862226e-06
+                action_share: 1.0
+                interpreted_energy: 1.732754893724452e-05
+                percentage: 0.0%
+                estimator: Neurosim Plug-In
+          - action_name: update
+            arguments: {}
+            energy: 451.30271
+            subaction_estimations:
+              - subcomponent_name: storage
+                subaction_name: write
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 451.214
+                action_share: 1.0
+                interpreted_energy: 451.214
+                percentage: 99.98%
+                estimator: CactiSRAM
+              - subcomponent_name: address_generators[0]
+                subaction_name: add
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.08870982
+                action_share: 1.0
+                interpreted_energy: 0.08870982
+                percentage: 0.02%
+                estimator: Neurosim Plug-In
+      - name: system_top_level.reg_file[1..65536]
+        actions:
+          - name: write
+            energy: 0.56957
+          - name: read
+            energy: 0.653431
+          - name: leak
+            energy: 0.000431
+          - name: update
+            energy: 0.56957
+        primitive_estimation(s):
+          - action_name: write
+            arguments: {}
+            energy: 0.56957
+            subaction_estimations:
+              - subcomponent_name: storage.storage[1..32]
+                subaction_name: write
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.0
+                action_share: 0.29118339661711395
+                interpreted_energy: 0.0
+                percentage: 0.0%
+                estimator: Library
+              - subcomponent_name: storage.comparator[1..64]
+                subaction_name: compare
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.02947
+                action_share: 0.29118339661711395
+                interpreted_energy: 0.5491951806916063
+                percentage: 96.42%
+                estimator: Library
+              - subcomponent_name: address_generators[0]
+                subaction_name: add
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.020374619999999993
+                action_share: 1.0
+                interpreted_energy: 0.020374619999999993
+                percentage: 3.58%
+                estimator: Neurosim Plug-In
+          - action_name: read
+            arguments: {}
+            energy: 0.653431
+            subaction_estimations:
+              - subcomponent_name: storage.storage[1..32]
+                subaction_name: read
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.009
+                action_share: 0.29118339661711395
+                interpreted_energy: 0.08386081822572881
+                percentage: 12.83%
+                estimator: Library
+              - subcomponent_name: storage.comparator[1..64]
+                subaction_name: compare
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.02947
+                action_share: 0.29118339661711395
+                interpreted_energy: 0.5491951806916063
+                percentage: 84.05%
+                estimator: Library
+              - subcomponent_name: address_generators[1]
+                subaction_name: add
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.020374619999999993
+                action_share: 1.0
+                interpreted_energy: 0.020374619999999993
+                percentage: 3.12%
+                estimator: Neurosim Plug-In
+          - action_name: leak
+            arguments: {}
+            energy: 0.000431
+            subaction_estimations:
+              - subcomponent_name: storage.storage[1..2048]
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.0
+                action_share: 0.25
+                interpreted_energy: 0.0
+                percentage: 0.0%
+                estimator: Library
+              - subcomponent_name: storage.comparator[1..64]
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 2.6702127661229996e-05
+                action_share: 0.25
+                interpreted_energy: 0.00042723404257967993
+                percentage: 99.13%
+                estimator: Library
+              - subcomponent_name: address_generators[0..1]
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 1.9690393618242076e-06
+                action_share: 1.0
+                interpreted_energy: 3.938078723648415e-06
+                percentage: 0.91%
+                estimator: Neurosim Plug-In
+          - action_name: update
+            arguments: {}
+            energy: 0.56957
+            subaction_estimations:
+              - subcomponent_name: storage.storage[1..32]
+                subaction_name: write
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.0
+                action_share: 0.29118339661711395
+                interpreted_energy: 0.0
+                percentage: 0.0%
+                estimator: Library
+              - subcomponent_name: storage.comparator[1..64]
+                subaction_name: compare
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.02947
+                action_share: 0.29118339661711395
+                interpreted_energy: 0.5491951806916063
+                percentage: 96.42%
+                estimator: Library
+              - subcomponent_name: address_generators[0]
+                subaction_name: add
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.020374619999999993
+                action_share: 1.0
+                interpreted_energy: 0.020374619999999993
+                percentage: 3.58%
+                estimator: Neurosim Plug-In
+      - name: system_top_level.max[1..65536]
+        actions:
+          - name: compute
+            energy: 0.028036
+          - name: leak
+            energy: 1.3e-05
+        primitive_estimation(s):
+          - action_name: compute
+            arguments: {}
+            energy: 0.028036
+            subaction_estimations:
+              - subcomponent_name: comparator
+                subaction_name: compare
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.014735
+                action_share: 1.0
+                interpreted_energy: 0.014735
+                percentage: 52.56%
+                estimator: Library
+              - subcomponent_name: mux
+                subaction_name: read
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.01330062
+                action_share: 1.0
+                interpreted_energy: 0.01330062
+                percentage: 47.44%
+                estimator: Neurosim Plug-In
+          - action_name: leak
+            arguments: {}
+            energy: 1.3e-05
+            subaction_estimations:
+              - subcomponent_name: comparator
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 1.3351063830614998e-05
+                action_share: 1.0
+                interpreted_energy: 1.3351063830614998e-05
+                percentage: 102.7%
+                estimator: Library
+      - name: system_top_level.add[1..65536]
+        actions:
+          - name: compute
+            energy: 8.3395
+          - name: leak
+            energy: 0.084574
+        primitive_estimation(s):
+          - action_name: compute
+            arguments: {}
+            energy: 8.3395
+            subaction_estimations:
+              - subcomponent_name: fpadder
+                subaction_name: add
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 8.3395
+                action_share: 1.0
+                interpreted_energy: 8.3395
+                percentage: 100.0%
+                estimator: Aladdin_table
+          - action_name: leak
+            arguments: {}
+            energy: 0.084574
+            subaction_estimations:
+              - subcomponent_name: fpadder
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.08457446809035
+                action_share: 1.0
+                interpreted_energy: 0.08457446809035
+                percentage: 100.0%
+                estimator: Aladdin_table
+      - name: system_top_level.mac[1..65536]
+        actions:
+          - name: compute
+            energy: 17.1645
+          - name: leak
+            energy: 0.180192
+        primitive_estimation(s):
+          - action_name: compute
+            arguments: {}
+            energy: 17.1645
+            subaction_estimations:
+              - subcomponent_name: fpadder
+                subaction_name: add
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 8.3395
+                action_share: 1.0
+                interpreted_energy: 8.3395
+                percentage: 48.59%
+                estimator: Aladdin_table
+              - subcomponent_name: fpmultiplier
+                subaction_name: multiply
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 8.825
+                action_share: 1.0
+                interpreted_energy: 8.825
+                percentage: 51.41%
+                estimator: Aladdin_table
+          - action_name: leak
+            arguments: {}
+            energy: 0.180192
+            subaction_estimations:
+              - subcomponent_name: fpadder
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.08457446809035
+                action_share: 1.0
+                interpreted_energy: 0.08457446809035
+                percentage: 46.94%
+                estimator: Aladdin_table
+              - subcomponent_name: fpmultiplier
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.09561797872933257
+                action_share: 1.0
+                interpreted_energy: 0.09561797872933257
+                percentage: 53.06%
+                estimator: Aladdin_table

@@ -1,0 +1,103 @@
+action_counts:
+  local:
+  - action_counts:
+    - counts: 11252920
+      name: read
+    - counts: 22510976
+      name: write
+    - counts: 22510976
+      name: leak
+    - counts: 22510976
+      name: update
+    name: system_top_level.reg_file[1]
+  - action_counts:
+    - counts: 11252920
+      name: read
+    - counts: 22510976
+      name: write
+    - counts: 22510976
+      name: leak
+    - counts: 22510976
+      name: update
+    name: system_top_level.reg_file[2]
+  ...
+  - action_counts:
+    - counts: 11252920
+      name: read
+    - counts: 22510976
+      name: write
+    - counts: 22510976
+      name: leak
+    - counts: 22510976
+      name: update
+    name: system_top_level.reg_file[256]  
+### MAX
+  - action_counts:
+    - counts: 11252920
+      name: compute
+    - counts: 22510976
+      name: leak
+    name: system_top_level.max[1]
+  ...
+  - action_counts:
+    - counts: 11252920
+      name: compute
+    - counts: 22510976
+      name: leak
+    name: system_top_level.max[256]
+### ADD 
+  - action_counts:
+    - counts: 11252920
+      name: compute
+    - counts: 22510976
+      name: leak
+    name: system_top_level.add[1]
+    ...
+  - action_counts:
+    - counts: 11252920
+      name: compute
+    - counts: 22510976
+      name: leak
+    name: system_top_level.add[256]
+### MAC 
+  - action_counts:
+    - counts: 11252920
+      name: compute
+    - counts: 22510976
+      name: leak
+    name: system_top_level.mac[1]
+    ...
+  - action_counts:
+    - counts: 11252920
+      name: compute
+    - counts: 22510976
+      name: leak
+    name: system_top_level.mac[256]
+### exponentiatial 
+  - action_counts:
+    - counts: 11252920
+      name: compute
+    - counts: 22510976
+      name: leak
+    name: system_top_level.exponentiatial[1]
+    ...
+  - action_counts:
+    - counts: 11252920
+      name: compute
+    - counts: 22510976
+      name: leak
+    name: system_top_level.exponentiatial[256]
+### divide 
+  - action_counts:
+    - counts: 11252920
+      name: compute
+    - counts: 22510976
+      name: leak
+    name: system_top_level.divide[1]
+    ...
+  - action_counts:
+    - counts: 11252920
+      name: compute
+    - counts: 22510976
+      name: leak
+    name: system_top_level.divide[256]

@@ -1,0 +1,83 @@
+action_counts:
+  local:
+  - action_counts:
+    - counts: 11252920
+      name: read
+    - counts: 22510976
+      name: write
+    - counts: 22510976
+      name: leak
+    - counts: 22510976
+      name: update
+    name: system_top_level.DRAM[1]
+    ##Global buffer
+  - action_counts:
+    - counts: 11252920
+      name: read
+    - counts: 22510976
+      name: write
+    - counts: 22510976
+      name: leak
+    - counts: 22510976
+      name: update
+    name: system_top_level.global_buffer[1]
+    ## reg-file 1 to 65536
+  - action_counts:
+    - counts: 11252920
+      name: read
+    - counts: 22510976
+      name: write
+    - counts: 22510976
+      name: leak
+    - counts: 22510976
+      name: update
+    name: system_top_level.reg_file[1]
+  - action_counts:
+    - counts: 11252920
+      name: read
+    - counts: 22510976
+      name: write
+    - counts: 22510976
+      name: leak
+    - counts: 22510976
+      name: update
+    name: system_top_level.reg_file[2]
+  ...
+  - action_counts:
+    - counts: 11252920
+      name: read
+    - counts: 22510976
+      name: write
+    - counts: 22510976
+      name: leak
+    - counts: 22510976
+      name: update
+    name: system_top_level.reg_file[65536]  
+### ADD
+  - action_counts:
+    - counts: 11252920
+      name: compute
+    - counts: 22510976
+      name: leak
+    name: system_top_level.add[1]
+  ...
+  - action_counts:
+    - counts: 11252920
+      name: compute
+    - counts: 22510976
+      name: leak
+    name: system_top_level.add[65536]
+### MAC 
+  - action_counts:
+    - counts: 11252920
+      name: compute
+    - counts: 22510976
+      name: leak
+    name: system_top_level.mac[1]
+    ...
+  - action_counts:
+    - counts: 11252920
+      name: compute
+    - counts: 22510976
+      name: leak
+    name: system_top_level.mac[65536]

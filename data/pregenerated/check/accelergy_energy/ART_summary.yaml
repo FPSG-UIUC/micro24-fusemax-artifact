@@ -1,0 +1,39 @@
+ART_summary:
+    version: '0.4'
+    table_summary:
+      - name: system_top_level.inter_PE_spatial[1..1]
+        area: 1.0
+        primitive_estimations: dummy_table
+      - name: system_top_level.reg_file[1..256]
+        area: 16849.2142
+        primitive_estimations:
+          - name: storage.storage[1..2048]
+            estimator: Library
+          - name: storage.comparator[1..64]
+            estimator: Library
+          - name: address_generators[0..1]
+            estimator: Neurosim Plug-In
+      - name: system_top_level.max[1..256]
+        area: 49.28944
+        primitive_estimations:
+          - name: comparator
+            estimator: Library
+          - name: mux
+            estimator: Neurosim Plug-In
+      - name: system_top_level.add[1..256]
+        area: 1030.0
+        primitive_estimations:
+          - name: fpadder
+            estimator: Aladdin_table
+      - name: system_top_level.mac[1..256]
+        area: 1545.0
+        primitive_estimations:
+          - name: fpadder
+            estimator: Aladdin_table
+          - name: fpmultiplier
+            estimator: Aladdin_table
+      - name: system_top_level.divide[1..256]
+        area: 23740.9375
+        primitive_estimations:
+          - name: divide_32b
+            estimator: Library

@@ -1,0 +1,690 @@
+ERT_summary:
+    version: '0.4'
+    table_summary:
+      - name: system_top_level.reg_file[1..256]
+        actions:
+          - name: write
+            energy: 0.336188
+          - name: read
+            energy: 0.385026
+          - name: leak
+            energy: 0.000217
+          - name: update
+            energy: 0.336188
+        primitive_estimation(s):
+          - action_name: write
+            arguments: {}
+            energy: 0.336188
+            subaction_estimations:
+              - subcomponent_name: storage.storage[1..32]
+                subaction_name: write
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.0
+                action_share: 0.16957554093095897
+                interpreted_energy: 0.0
+                percentage: 0.0%
+                estimator: Library
+              - subcomponent_name: storage.comparator[1..64]
+                subaction_name: compare
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.02947
+                action_share: 0.16957554093095897
+                interpreted_energy: 0.3198330362390631
+                percentage: 95.14%
+                estimator: Library
+              - subcomponent_name: address_generators[0]
+                subaction_name: add
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.016354909999999997
+                action_share: 1.0
+                interpreted_energy: 0.016354909999999997
+                percentage: 4.86%
+                estimator: Neurosim Plug-In
+          - action_name: read
+            arguments: {}
+            energy: 0.385026
+            subaction_estimations:
+              - subcomponent_name: storage.storage[1..32]
+                subaction_name: read
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.009
+                action_share: 0.16957554093095897
+                interpreted_energy: 0.04883775578811618
+                percentage: 12.68%
+                estimator: Library
+              - subcomponent_name: storage.comparator[1..64]
+                subaction_name: compare
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.02947
+                action_share: 0.16957554093095897
+                interpreted_energy: 0.3198330362390631
+                percentage: 83.07%
+                estimator: Library
+              - subcomponent_name: address_generators[1]
+                subaction_name: add
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.016354909999999997
+                action_share: 1.0
+                interpreted_energy: 0.016354909999999997
+                percentage: 4.25%
+                estimator: Neurosim Plug-In
+          - action_name: leak
+            arguments: {}
+            energy: 0.000217
+            subaction_estimations:
+              - subcomponent_name: storage.storage[1..2048]
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.0
+                action_share: 0.125
+                interpreted_energy: 0.0
+                percentage: 0.0%
+                estimator: Library
+              - subcomponent_name: storage.comparator[1..64]
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 2.6702127661229996e-05
+                action_share: 0.125
+                interpreted_energy: 0.00021361702128983997
+                percentage: 98.44%
+                estimator: Library
+              - subcomponent_name: address_generators[0..1]
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 1.575231914991281e-06
+                action_share: 1.0
+                interpreted_energy: 3.150463829982562e-06
+                percentage: 1.45%
+                estimator: Neurosim Plug-In
+          - action_name: update
+            arguments: {}
+            energy: 0.336188
+            subaction_estimations:
+              - subcomponent_name: storage.storage[1..32]
+                subaction_name: write
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.0
+                action_share: 0.16957554093095897
+                interpreted_energy: 0.0
+                percentage: 0.0%
+                estimator: Library
+              - subcomponent_name: storage.comparator[1..64]
+                subaction_name: compare
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.02947
+                action_share: 0.16957554093095897
+                interpreted_energy: 0.3198330362390631
+                percentage: 95.14%
+                estimator: Library
+              - subcomponent_name: address_generators[0]
+                subaction_name: add
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.016354909999999997
+                action_share: 1.0
+                interpreted_energy: 0.016354909999999997
+                percentage: 4.86%
+                estimator: Neurosim Plug-In
+      - name: system_top_level.max[1..256]
+        actions:
+          - name: compute
+            energy: 0.028036
+          - name: leak
+            energy: 1.3e-05
+        primitive_estimation(s):
+          - action_name: compute
+            arguments: {}
+            energy: 0.028036
+            subaction_estimations:
+              - subcomponent_name: comparator
+                subaction_name: compare
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.014735
+                action_share: 1.0
+                interpreted_energy: 0.014735
+                percentage: 52.56%
+                estimator: Library
+              - subcomponent_name: mux
+                subaction_name: read
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.01330062
+                action_share: 1.0
+                interpreted_energy: 0.01330062
+                percentage: 47.44%
+                estimator: Neurosim Plug-In
+          - action_name: leak
+            arguments: {}
+            energy: 1.3e-05
+            subaction_estimations:
+              - subcomponent_name: comparator
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 1.3351063830614998e-05
+                action_share: 1.0
+                interpreted_energy: 1.3351063830614998e-05
+                percentage: 102.7%
+                estimator: Library
+      - name: system_top_level.add[1..256]
+        actions:
+          - name: compute
+            energy: 8.3395
+          - name: leak
+            energy: 0.084574
+        primitive_estimation(s):
+          - action_name: compute
+            arguments: {}
+            energy: 8.3395
+            subaction_estimations:
+              - subcomponent_name: fpadder
+                subaction_name: add
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 8.3395
+                action_share: 1.0
+                interpreted_energy: 8.3395
+                percentage: 100.0%
+                estimator: Aladdin_table
+          - action_name: leak
+            arguments: {}
+            energy: 0.084574
+            subaction_estimations:
+              - subcomponent_name: fpadder
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.08457446809035
+                action_share: 1.0
+                interpreted_energy: 0.08457446809035
+                percentage: 100.0%
+                estimator: Aladdin_table
+      - name: system_top_level.mac[1..256]
+        actions:
+          - name: compute
+            energy: 17.1645
+          - name: leak
+            energy: 0.180192
+        primitive_estimation(s):
+          - action_name: compute
+            arguments: {}
+            energy: 17.1645
+            subaction_estimations:
+              - subcomponent_name: fpadder
+                subaction_name: add
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 8.3395
+                action_share: 1.0
+                interpreted_energy: 8.3395
+                percentage: 48.59%
+                estimator: Aladdin_table
+              - subcomponent_name: fpmultiplier
+                subaction_name: multiply
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 8.825
+                action_share: 1.0
+                interpreted_energy: 8.825
+                percentage: 51.41%
+                estimator: Aladdin_table
+          - action_name: leak
+            arguments: {}
+            energy: 0.180192
+            subaction_estimations:
+              - subcomponent_name: fpadder
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.08457446809035
+                action_share: 1.0
+                interpreted_energy: 0.08457446809035
+                percentage: 46.94%
+                estimator: Aladdin_table
+              - subcomponent_name: fpmultiplier
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.09561797872933257
+                action_share: 1.0
+                interpreted_energy: 0.09561797872933257
+                percentage: 53.06%
+                estimator: Aladdin_table
+      - name: system_top_level.exponentiatial[1..256]
+        actions:
+          - name: compute
+            energy: 94.6475
+          - name: leak
+            energy: 0.99658
+        primitive_estimation(s):
+          - action_name: compute
+            arguments: {}
+            energy: 94.6475
+            subaction_estimations:
+              - subcomponent_name: d5tod4.fpadder
+                subaction_name: add
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 8.3395
+                action_share: 1.0
+                interpreted_energy: 8.3395
+                percentage: 8.81%
+                estimator: Aladdin_table
+              - subcomponent_name: d5tod4.fpmultiplier
+                subaction_name: multiply
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 8.825
+                action_share: 1.0
+                interpreted_energy: 8.825
+                percentage: 9.32%
+                estimator: Aladdin_table
+              - subcomponent_name: d4tod3.fpadder
+                subaction_name: add
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 8.3395
+                action_share: 1.0
+                interpreted_energy: 8.3395
+                percentage: 8.81%
+                estimator: Aladdin_table
+              - subcomponent_name: d4tod3.fpmultiplier
+                subaction_name: multiply
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 8.825
+                action_share: 1.0
+                interpreted_energy: 8.825
+                percentage: 9.32%
+                estimator: Aladdin_table
+              - subcomponent_name: d3tod2.fpadder
+                subaction_name: add
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 8.3395
+                action_share: 1.0
+                interpreted_energy: 8.3395
+                percentage: 8.81%
+                estimator: Aladdin_table
+              - subcomponent_name: d3tod2.fpmultiplier
+                subaction_name: multiply
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 8.825
+                action_share: 1.0
+                interpreted_energy: 8.825
+                percentage: 9.32%
+                estimator: Aladdin_table
+              - subcomponent_name: d2tod1.fpadder
+                subaction_name: add
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 8.3395
+                action_share: 1.0
+                interpreted_energy: 8.3395
+                percentage: 8.81%
+                estimator: Aladdin_table
+              - subcomponent_name: d2tod1.fpmultiplier
+                subaction_name: multiply
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 8.825
+                action_share: 1.0
+                interpreted_energy: 8.825
+                percentage: 9.32%
+                estimator: Aladdin_table
+              - subcomponent_name: d1tod0.fpadder
+                subaction_name: add
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 8.3395
+                action_share: 1.0
+                interpreted_energy: 8.3395
+                percentage: 8.81%
+                estimator: Aladdin_table
+              - subcomponent_name: d1tod0.fpmultiplier
+                subaction_name: multiply
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 8.825
+                action_share: 1.0
+                interpreted_energy: 8.825
+                percentage: 9.32%
+                estimator: Aladdin_table
+              - subcomponent_name: d0eAtoeX
+                subaction_name: multiply
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 8.825
+                action_share: 1.0
+                interpreted_energy: 8.825
+                percentage: 9.32%
+                estimator: Aladdin_table
+          - action_name: leak
+            arguments: {}
+            energy: 0.99658
+            subaction_estimations:
+              - subcomponent_name: d5tod4.fpadder
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.08457446809035
+                action_share: 1.0
+                interpreted_energy: 0.08457446809035
+                percentage: 8.49%
+                estimator: Aladdin_table
+              - subcomponent_name: d5tod4.fpmultiplier
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.09561797872933257
+                action_share: 1.0
+                interpreted_energy: 0.09561797872933257
+                percentage: 9.59%
+                estimator: Aladdin_table
+              - subcomponent_name: d4tod3.fpadder
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.08457446809035
+                action_share: 1.0
+                interpreted_energy: 0.08457446809035
+                percentage: 8.49%
+                estimator: Aladdin_table
+              - subcomponent_name: d4tod3.fpmultiplier
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.09561797872933257
+                action_share: 1.0
+                interpreted_energy: 0.09561797872933257
+                percentage: 9.59%
+                estimator: Aladdin_table
+              - subcomponent_name: d3tod2.fpadder
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.08457446809035
+                action_share: 1.0
+                interpreted_energy: 0.08457446809035
+                percentage: 8.49%
+                estimator: Aladdin_table
+              - subcomponent_name: d3tod2.fpmultiplier
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.09561797872933257
+                action_share: 1.0
+                interpreted_energy: 0.09561797872933257
+                percentage: 9.59%
+                estimator: Aladdin_table
+              - subcomponent_name: d2tod1.fpadder
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.08457446809035
+                action_share: 1.0
+                interpreted_energy: 0.08457446809035
+                percentage: 8.49%
+                estimator: Aladdin_table
+              - subcomponent_name: d2tod1.fpmultiplier
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.09561797872933257
+                action_share: 1.0
+                interpreted_energy: 0.09561797872933257
+                percentage: 9.59%
+                estimator: Aladdin_table
+              - subcomponent_name: d1tod0.fpadder
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.08457446809035
+                action_share: 1.0
+                interpreted_energy: 0.08457446809035
+                percentage: 8.49%
+                estimator: Aladdin_table
+              - subcomponent_name: d1tod0.fpmultiplier
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.09561797872933257
+                action_share: 1.0
+                interpreted_energy: 0.09561797872933257
+                percentage: 9.59%
+                estimator: Aladdin_table
+              - subcomponent_name: d0eAtoeX
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.09561797872933257
+                action_share: 1.0
+                interpreted_energy: 0.09561797872933257
+                percentage: 9.59%
+                estimator: Aladdin_table
+      - name: system_top_level.divide[1..256]
+        actions:
+          - name: compute
+            energy: 36.251153
+          - name: leak
+            energy: 0.0
+        primitive_estimation(s):
+          - action_name: compute
+            arguments: {}
+            energy: 36.251153
+            subaction_estimations:
+              - subcomponent_name: divide_32b
+                subaction_name: divide
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 36.25115265271355
+                action_share: 1.0
+                interpreted_energy: 36.25115265271355
+                percentage: 100.0%
+                estimator: Library
+          - action_name: leak
+            arguments: {}
+            energy: 0.0
+            subaction_estimations:
+              - subcomponent_name: divide_32b
+                subaction_name: leak
+                arguments:
+                    global_cycle_seconds: 1.0638297873e-09
+                    action_latency_cycles: 1
+                    cycle_seconds: 1.0638297873e-09
+                    technology: "45nm"
+                    n_instances: 1
+                energy: 0.0
+                action_share: 1.0
+                interpreted_energy: 0.0
+                percentage: 0%
+                estimator: Library

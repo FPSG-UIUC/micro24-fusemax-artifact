@@ -1,0 +1,72 @@
+ERT_summary:
+    version: '0.4'
+    table_summary:
+      - name: system_top_level.DRAM[1..1]
+        actions:
+          - name: update
+            energy: 512.0
+          - name: read
+            energy: 512.0
+          - name: write
+            energy: 512.0
+          - name: leak
+            energy: 0.0
+        primitive_estimation(s):
+          - name: system_top_level.DRAM[1..1]
+            estimator: CactiDRAM
+      - name: system_top_level.reg_file_1d[1..1]
+        actions:
+          - name: update
+            energy: 0.0
+          - name: read
+            energy: 0.024991
+          - name: write
+            energy: 0.0
+          - name: leak
+            energy: 0.0
+        primitive_estimation(s):
+          - name: system_top_level.reg_file_1d[1..1]
+            estimator: Library
+      - name: system_top_level.reg_file[1..65536]
+        actions:
+          - name: update
+            energy: 0.0
+          - name: read
+            energy: 0.024991
+          - name: write
+            energy: 0.0
+          - name: leak
+            energy: 0.0
+        primitive_estimation(s):
+          - name: system_top_level.reg_file[1..65536]
+            estimator: Library
+      - name: system_top_level.L3[1..1]
+        actions:
+          - name: write
+            energy: 2759.44498
+          - name: read
+            energy: 2286.521343
+          - name: leak
+            energy: 1.274859
+          - name: update
+            energy: 2759.44498
+        primitive_estimation(s):
+          - name: storage
+            estimator: CactiSRAM
+          - name: address_generators[0]
+            estimator: Neurosim Plug-In
+          - name: address_generators[1]
+            estimator: Neurosim Plug-In
+          - name: address_generators[0..1]
+            estimator: Neurosim Plug-In
+      - name: system_top_level.mac[1..65536]
+        actions:
+          - name: compute
+            energy: 0.054668
+          - name: leak
+            energy: 0.000665
+        primitive_estimation(s):
+          - name: intadder
+            estimator: Library
+          - name: intmultiplier
+            estimator: Library

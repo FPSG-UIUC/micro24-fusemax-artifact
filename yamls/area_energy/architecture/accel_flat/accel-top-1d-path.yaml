@@ -1,0 +1,69 @@
+architecture:
+  # ============================================================
+  # Architecture Description
+  # ============================================================
+  version: 0.4
+  nodes: # Top-level is hierarchical
+  - !Container # Top-level system
+    name: system
+    attributes:
+      # 940 MHz
+      global_cycle_seconds: 1.0638297873e-9
+      # Unfortunately, default plug-ins only support 45nm (for the components we need to use)
+      technology: "45nm"
+
+  # The other stuff (DRAM, buffer) is in the 2d-path architecture file
+
+  #### We need a PE array AND we need a staging buffer AND we need a 2D mesh
+  # this file only contains the 1D PE array and the staging buffer
+  # Oy, we need a row of PEs and a staging buffer
+  - !Container
+    name: PE
+    spatial:
+      meshX: 256
+
+  - !Component # 16-register register file
+    name: reg_file
+    class: smartbuffer_RF
+    attributes:
+      depth: 16 # # of rows in storage, 16 registers per PE in FLAT, 1D path
+      width: 16 # bits per row
+      update_fifo_depth: 2
+      datawidth: 16 # bits per word
+
+  - !Component # Let's get the max of two units
+    name: max
+    class: mac_max
+    attributes:
+      compare_width: 16
+
+  - !Component # Adder
+    name: add
+    class: fpmac_adder
+    attributes:
+      adder_width: 16
+
+  - !Component # Multiplier
+    name: mac
+    class: fpmac
+    attributes:
+      multiplier_width: 16
+      adder_width: 16
+
+  - !Component # MAC unit
+    name: exponentiatial
+    class: mac_exponential ## TODO - myexponent
+    attributes:
+      multiplier_width: 16
+      adder_width: 16
+
+  # According to this paper "Energy and area analysis of a" +
+  # "floating-point unit in 15nm CMOS process technology" we
+  # can get the result in 4 cycles
+  - !Component # Division
+    name: divide
+    class: fpmac_divide ## Wait! Fix this...
+    attributes:
+      datawidth: 16
+      datawidth_a: 16
+      datawidth_b: 16

@@ -1,0 +1,192 @@
+compound_components:
+  version: 0.4         # REQUIRED version number
+  classes:
+    ## My addition. Timeloop has a weird bug where it will not accept other names that don't contain "fpmac"
+  - name: fpmac_adder
+    attributes:
+      technology: "must_specify"
+      adder_width: "must_specify"
+      global_cycle_seconds: "must_specify"
+
+    subcomponents:
+    - name: fpadder
+      class: fpadder
+      attributes: {exponent: 5, mantissa: adder_width - exponent}
+
+    actions:
+    - name: compute
+      subcomponents:
+      - name: fpadder
+        actions: [{name: add}]
+    - name: leak
+      subcomponents:
+      - name: fpadder
+        actions: [{name: leak}]
+
+  - name: fpmac_multiplier
+    attributes:
+      technology: "must_specify"
+      multiplier_width: "must_specify"
+      global_cycle_seconds: "must_specify"
+
+    subcomponents:
+    - name: fpmultiplier
+      class: fpmultiplier
+      attributes: {exponent: 5, mantissa: multiplier_width - exponent}
+
+    actions:
+    - name: compute
+      subcomponents:
+      - name: fpmultiplier
+        actions: [{name: multiply}]
+    - name: leak
+      subcomponents:
+      - name: fpmultiplier
+        actions: [{name: leak}]
+
+  # max is the combiniation of a comparator (to check if A > B)
+  # and a mux to select a return value
+  - name: mac_max
+    attributes:
+      technology: "must_specify"
+      compare_width: "must_specify"
+      global_cycle_seconds: "must_specify"
+
+    subcomponents:
+    - name: comparator
+      class: aladdin_comparator
+      attributes: {datawidth: compare_width}
+    - name: mux
+      class: mux
+      attributes:
+        n_mux_inputs: 2
+        n_bits: compare_width
+
+    actions:
+    - name: compute
+      subcomponents:
+      - name: comparator
+        actions: [{name: update}]
+      - name: comparator
+        actions: [{name: compare}]
+      - name: mux
+        actions: [{name: read}]
+    - name: leak
+      subcomponents:
+      - name: comparator
+        actions: [{name: leak}]
+
+
+  # we want to do the exponential of e^<some value>
+  # let's use the 5th order Taylor series: (see Figure 5 of https://doi.org/10.1109/NORCHIP.2014.7004740)
+  # also, the SpAtten basically used FMA units as well, so we can do that:
+  # let's do 5 fmas, followed by a final multiply operator (so 6 cycles)
+  # we'll have 5 separate fmas b/c we want to pipeline computation.
+  # note that the actual paper does some weird 2x15 then 2x18 adder/multipliers,
+  # but SpAtten doesn't seem to be doing the same thing.
+  # We're following SpAtten, So this area/energy estimate
+  # that we have here, is an upper bound.
+  # Also, the hardware paper uses 15 bits for x, SpAtten seems to use 12b (See fig 8), and we're using 16 bits.
+  # Cost: 6 cycles for exponentiation
+  - name: mac_exponential
+    attributes:
+      technology: "must_specify"
+      multiplier_width: "must_specify"
+      adder_width: "must_specify"
+      global_cycle_seconds: "must_specify"
+
+    subcomponents:
+    - name: d5tod4 #see fig 5 of the 2014 Nilsson paper
+      class: fpmac
+      attributes:
+        technology: technology
+        multiplier_width: multiplier_width
+        adder_width: adder_width
+        global_cycle_seconds: global_cycle_seconds
+    - name: d4tod3 #see fig 5 of the 2014 Nilsson paper
+      class: fpmac
+      attributes:
+        technology: technology
+        multiplier_width: multiplier_width
+        adder_width: adder_width
+        global_cycle_seconds: global_cycle_seconds
+    - name: d3tod2 #see fig 5 of the 2014 Nilsson paper
+      class: fpmac
+      attributes:
+        technology: technology
+        multiplier_width: multiplier_width
+        adder_width: adder_width
+        global_cycle_seconds: global_cycle_seconds
+    - name: d2tod1 #see fig 5 of the 2014 Nilsson paper
+      class: fpmac
+      attributes:
+        technology: technology
+        multiplier_width: multiplier_width
+        adder_width: adder_width
+        global_cycle_seconds: global_cycle_seconds
+    - name: d1tod0 #see fig 5 of the 2014 Nilsson paper
+      class: fpmac
+      attributes:
+        technology: technology
+        multiplier_width: multiplier_width
+        adder_width: adder_width
+        global_cycle_seconds: global_cycle_seconds
+    - name: d0eAtoeX # our final output!  -- # change this to an fpmac
+      class: fpmultiplier
+      attributes: {exponent: 5, mantissa: multiplier_width - exponent}
+
+    # We group everything together here, but note that this takes 6 cycles
+    actions:
+    - name: compute
+      subcomponents:
+      - name: d5tod4
+        actions: [{name: compute}]
+      - name: d4tod3
+        actions: [{name: compute}]
+      - name: d3tod2
+        actions: [{name: compute}]
+      - name: d2tod1
+        actions: [{name: compute}]
+      - name: d1tod0
+        actions: [{name: compute}]
+      - name: d0eAtoeX
+        actions: [{name: multiply}]
+    - name: leak
+      subcomponents:
+      - name: d5tod4
+        actions: [{name: leak}]
+      - name: d4tod3
+        actions: [{name: leak}]
+      - name: d3tod2
+        actions: [{name: leak}]
+      - name: d2tod1
+        actions: [{name: leak}]
+      - name: d1tod0
+        actions: [{name: leak}]
+      - name: d0eAtoeX
+        actions: [{name: leak}]
+
+  - name: fpmac_divide
+    attributes:
+      technology: "must_specify"
+      global_cycle_seconds: "must_specify"
+      datawidth: "must_specify"
+      datawidth_a: "must_specify"
+      datawidth_b: "must_specify"
+    subcomponents:
+    - name: divide_32b
+      class: custom_divide
+      attributes:
+        datawidth: datawidth
+        datawidth_a: datawidth_a
+        datawidth_b: datawidth_b
+
+    actions:
+    - name: compute
+      subcomponents:
+      - name: divide_32b
+        actions: [{name: divide}]
+    - name: leak
+      subcomponents:
+      - name: divide_32b
+        actions: [{name: leak}]

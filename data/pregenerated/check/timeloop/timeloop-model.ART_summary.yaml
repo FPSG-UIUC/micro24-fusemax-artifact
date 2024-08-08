@@ -1,0 +1,32 @@
+ART_summary:
+    version: '0.4'
+    table_summary:
+      - name: system_top_level.DRAM[1..1]
+        area: 0.0
+        primitive_estimations: CactiDRAM
+      - name: system_top_level.reg_file_1d[1..1]
+        area: 18.1792
+        primitive_estimations: Library
+      - name: system_top_level.inter_PE_col_spatial[1..1]
+        area: 1.0
+        primitive_estimations: dummy_table
+      - name: system_top_level.inter_PE_spatial[1..256]
+        area: 1.0
+        primitive_estimations: dummy_table
+      - name: system_top_level.reg_file[1..65536]
+        area: 18.1792
+        primitive_estimations: Library
+      - name: system_top_level.L3[1..1]
+        area: 14641628.09825
+        primitive_estimations:
+          - name: storage
+            estimator: CactiSRAM
+          - name: address_generators[0..1]
+            estimator: Neurosim Plug-In
+      - name: system_top_level.mac[1..65536]
+        area: 79.23
+        primitive_estimations:
+          - name: intadder
+            estimator: Library
+          - name: intmultiplier
+            estimator: Library

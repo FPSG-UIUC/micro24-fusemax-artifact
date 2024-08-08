@@ -1,0 +1,14 @@
+energy_estimation:
+    version: '0.4'
+    components:
+      - name: system_top_level.reg_file[1]
+        energy: 217465624361.7792
+      - name: system_top_level.mac[1]
+        energy: 981410361901.056
+      - name: system_top_level.max[1]
+        energy: 22577569.333247997
+      - name: system_top_level.add[1]
+        energy: 443246262091.77594
+      - name: system_top_level.divide[1]
+        energy: 29193284358.242306
+    Total: 1671338110282.1865

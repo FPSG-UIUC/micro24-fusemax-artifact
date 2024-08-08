@@ -1,0 +1,124 @@
+ART_summary:
+    version: '0.4'
+    table_summary:
+      - name: system_top_level.inter_PE_spatial[1..1]
+        area: 1.0
+        primitive_estimations: dummy_table
+      - name: system_top_level.reg_file[1..256]
+        area: 2145.41936
+        primitive_estimations:
+          - name: storage.storage[1..2048]
+            estimator: Library
+            area: 5.98
+            area_share: 0.125
+            total_component_area: 1530.88
+          - name: storage.comparator[1..64]
+            estimator: Library
+            area: 71.0
+            area_share: 0.125
+            total_component_area: 568.0
+          - name: address_generators[0..1]
+            estimator: Neurosim Plug-In
+            area: 23.26968
+            area_share: 1
+            total_component_area: 46.53936
+      - name: system_top_level.max[1..256]
+        area: 49.28944
+        primitive_estimations:
+          - name: comparator
+            estimator: Library
+            area: 35.5
+            area_share: 1
+            total_component_area: 35.5
+          - name: mux
+            estimator: Neurosim Plug-In
+            area: 13.78944
+            area_share: 1
+            total_component_area: 13.78944
+      - name: system_top_level.add[1..256]
+        area: 1030.0
+        primitive_estimations:
+          - name: fpadder
+            estimator: Aladdin_table
+            area: 1030.0
+            area_share: 1
+            total_component_area: 1030.0
+      - name: system_top_level.mac[1..256]
+        area: 1545.0
+        primitive_estimations:
+          - name: fpadder
+            estimator: Aladdin_table
+            area: 1030.0
+            area_share: 1
+            total_component_area: 1030.0
+          - name: fpmultiplier
+            estimator: Aladdin_table
+            area: 515.0
+            area_share: 1
+            total_component_area: 515.0
+      - name: system_top_level.exponentiatial[1..256]
+        area: 8240.0
+        primitive_estimations:
+          - name: d5tod4.fpadder
+            estimator: Aladdin_table
+            area: 1030.0
+            area_share: 1
+            total_component_area: 1030.0
+          - name: d5tod4.fpmultiplier
+            estimator: Aladdin_table
+            area: 515.0
+            area_share: 1
+            total_component_area: 515.0
+          - name: d4tod3.fpadder
+            estimator: Aladdin_table
+            area: 1030.0
+            area_share: 1
+            total_component_area: 1030.0
+          - name: d4tod3.fpmultiplier
+            estimator: Aladdin_table
+            area: 515.0
+            area_share: 1
+            total_component_area: 515.0
+          - name: d3tod2.fpadder
+            estimator: Aladdin_table
+            area: 1030.0
+            area_share: 1
+            total_component_area: 1030.0
+          - name: d3tod2.fpmultiplier
+            estimator: Aladdin_table
+            area: 515.0
+            area_share: 1
+            total_component_area: 515.0
+          - name: d2tod1.fpadder
+            estimator: Aladdin_table
+            area: 1030.0
+            area_share: 1
+            total_component_area: 1030.0
+          - name: d2tod1.fpmultiplier
+            estimator: Aladdin_table
+            area: 515.0
+            area_share: 1
+            total_component_area: 515.0
+          - name: d1tod0.fpadder
+            estimator: Aladdin_table
+            area: 1030.0
+            area_share: 1
+            total_component_area: 1030.0
+          - name: d1tod0.fpmultiplier
+            estimator: Aladdin_table
+            area: 515.0
+            area_share: 1
+            total_component_area: 515.0
+          - name: d0eAtoeX
+            estimator: Aladdin_table
+            area: 515.0
+            area_share: 1
+            total_component_area: 515.0
+      - name: system_top_level.divide[1..256]
+        area: 23740.9375
+        primitive_estimations:
+          - name: divide_32b
+            estimator: Library
+            area: 23740.9375
+            area_share: 1
+            total_component_area: 23740.9375

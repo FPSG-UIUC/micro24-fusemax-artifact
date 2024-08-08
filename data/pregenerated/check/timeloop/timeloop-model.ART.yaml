@@ -1,0 +1,17 @@
+ART:
+    version: '0.4'
+    tables:
+      - name: system_top_level.DRAM[1..1]
+        area: 0.0
+      - name: system_top_level.reg_file_1d[1..1]
+        area: 18.1792
+      - name: system_top_level.inter_PE_col_spatial[1..1]
+        area: 1.0
+      - name: system_top_level.inter_PE_spatial[1..256]
+        area: 1.0
+      - name: system_top_level.reg_file[1..65536]
+        area: 18.1792
+      - name: system_top_level.L3[1..1]
+        area: 14641628.09825
+      - name: system_top_level.mac[1..65536]
+        area: 79.23

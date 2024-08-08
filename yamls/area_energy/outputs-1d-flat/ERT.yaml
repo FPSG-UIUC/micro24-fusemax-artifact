@@ -1,0 +1,57 @@
+ERT:
+    version: '0.4'
+    tables:
+      - name: system_top_level.reg_file[1..256]
+        actions:
+          - name: write
+            arguments: {}
+            energy: 0.336188
+          - name: read
+            arguments: {}
+            energy: 0.385026
+          - name: leak
+            arguments: {}
+            energy: 0.000217
+          - name: update
+            arguments: {}
+            energy: 0.336188
+      - name: system_top_level.max[1..256]
+        actions:
+          - name: compute
+            arguments: {}
+            energy: 0.028036
+          - name: leak
+            arguments: {}
+            energy: 1.3e-05
+      - name: system_top_level.add[1..256]
+        actions:
+          - name: compute
+            arguments: {}
+            energy: 8.3395
+          - name: leak
+            arguments: {}
+            energy: 0.084574
+      - name: system_top_level.mac[1..256]
+        actions:
+          - name: compute
+            arguments: {}
+            energy: 17.1645
+          - name: leak
+            arguments: {}
+            energy: 0.180192
+      - name: system_top_level.exponentiatial[1..256]
+        actions:
+          - name: compute
+            arguments: {}
+            energy: 94.6475
+          - name: leak
+            arguments: {}
+            energy: 0.99658
+      - name: system_top_level.divide[1..256]
+        actions:
+          - name: compute
+            arguments: {}
+            energy: 36.251153
+          - name: leak
+            arguments: {}
+            energy: 0.0

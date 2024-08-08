@@ -1,0 +1,25 @@
+action_counts:
+  local:
+  - action_counts:
+    - {counts: 52376371200.0, name: read}
+    - {counts: 53779415040.0, name: write}
+    - {counts: 0, name: update}
+    - {counts: 0, name: leak}
+    name: system_top_level.reg_file[1]
+  - action_counts:
+    - {counts: 57176752128, name: compute}
+    - {counts: 0, name: leak}
+    name: system_top_level.mac[1]
+  - action_counts:
+    - {counts: 805306368, name: compute}
+    - {counts: 0, name: leak}
+    name: system_top_level.max[1]
+  - action_counts:
+    - {counts: 53150220288, name: compute}
+    - {counts: 0, name: leak}
+    name: system_top_level.add[1]
+  - action_counts:
+    - {counts: 805306368, name: compute}
+    - {counts: 0, name: leak}
+    name: system_top_level.divide[1]
+  version: '0.4'

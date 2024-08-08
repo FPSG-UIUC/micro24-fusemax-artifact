@@ -1,0 +1,153 @@
+architecture:
+    version: '0.4'
+    local:
+      - name: system_top_level.inter_PE_spatial[1..1]
+        class: dummy_storage
+        attributes:
+            width: 1
+            depth: 1
+            datawidth: 1
+            technology: -1
+            has_power_gating: false
+            n_banks: 2
+            cluster_size: 1
+            reduction_supported: true
+            multiple_buffering: 1
+            min_utilization: 0
+            allow_overbooking: false
+            meshX: 1
+            meshY: 1
+            global_cycle_seconds: 1.0638297873e-09
+            power_gated_at: null
+            version: '0.4'
+            DATAWIDTH: 8
+            action_latency_cycles: 1
+            cycle_seconds: 1.0638297873e-09
+            n_instances: 1
+        enabled: true
+        area_scale: 1.0
+        energy_scale: 1.0
+      - name: system_top_level.reg_file[1..256]
+        class: smartbuffer_RF
+        attributes:
+            depth: 32
+            width: 16
+            update_fifo_depth: 2
+            datawidth: 16
+            has_power_gating: false
+            n_banks: 2
+            cluster_size: 1
+            reduction_supported: true
+            multiple_buffering: 1
+            min_utilization: 0
+            allow_overbooking: false
+            meshX: 256
+            meshY: 1
+            global_cycle_seconds: 1.0638297873e-09
+            technology: "45nm"
+            power_gated_at: null
+            version: '0.4'
+            DATAWIDTH: 8
+            action_latency_cycles: 1
+            cycle_seconds: 1.0638297873e-09
+            n_instances: 1
+            memory_width: 32
+            memory_depth: 64
+            widthscale: 0.5
+            depthscale: 0.5
+            real_depth: 32
+            area_scale: 0.25
+            dynamic_energy_scale: 0.29118339661711395
+            static_energy_scale: 0.25
+            n_rdwr_ports: 1
+        required_actions:
+          - read
+          - leak
+          - write
+          - update
+        enabled: true
+        area_scale: 1.0
+        energy_scale: 1.0
+      - name: system_top_level.max[1..256]
+        class: mac_max
+        attributes:
+            compare_width: 16
+            has_power_gating: false
+            meshX: 256
+            meshY: 1
+            global_cycle_seconds: 1.0638297873e-09
+            technology: "45nm"
+            power_gated_at: null
+            version: '0.4'
+            DATAWIDTH: 8
+            action_latency_cycles: 1
+            cycle_seconds: 1.0638297873e-09
+            n_instances: 1
+        required_actions:
+          - compute
+        enabled: true
+        area_scale: 1.0
+        energy_scale: 1.0
+      - name: system_top_level.add[1..256]
+        class: fpmac_adder
+        attributes:
+            adder_width: 16
+            has_power_gating: false
+            meshX: 256
+            meshY: 1
+            global_cycle_seconds: 1.0638297873e-09
+            technology: "45nm"
+            power_gated_at: null
+            version: '0.4'
+            DATAWIDTH: 8
+            action_latency_cycles: 1
+            cycle_seconds: 1.0638297873e-09
+            n_instances: 1
+        required_actions:
+          - compute
+        enabled: true
+        area_scale: 1.0
+        energy_scale: 1.0
+      - name: system_top_level.mac[1..256]
+        class: fpmac
+        attributes:
+            multiplier_width: 16
+            adder_width: 16
+            has_power_gating: false
+            meshX: 256
+            meshY: 1
+            global_cycle_seconds: 1.0638297873e-09
+            technology: "45nm"
+            power_gated_at: null
+            version: '0.4'
+            DATAWIDTH: 8
+            action_latency_cycles: 1
+            cycle_seconds: 1.0638297873e-09
+            n_instances: 1
+        required_actions:
+          - compute
+        enabled: true
+        area_scale: 1.0
+        energy_scale: 1.0
+      - name: system_top_level.divide[1..256]
+        class: fpmac_divide
+        attributes:
+            datawidth: 16
+            datawidth_a: 16
+            datawidth_b: 16
+            has_power_gating: false
+            meshX: 256
+            meshY: 1
+            global_cycle_seconds: 1.0638297873e-09
+            technology: "45nm"
+            power_gated_at: null
+            version: '0.4'
+            DATAWIDTH: 8
+            action_latency_cycles: 1
+            cycle_seconds: 1.0638297873e-09
+            n_instances: 1
+        required_actions:
+          - compute
+        enabled: true
+        area_scale: 1.0
+        energy_scale: 1.0

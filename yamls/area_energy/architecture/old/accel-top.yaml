@@ -1,0 +1,97 @@
+architecture:
+  # ============================================================
+  # Architecture Description
+  # ============================================================
+  version: 0.4
+  nodes: # Top-level is hierarchical
+  - !Container # Top-level system
+    name: system
+    attributes:
+      # 940 MHz
+      global_cycle_seconds: 1.0638297873e-9
+      # Based on TPUv3
+      technology: "45nm"
+
+  - !Component # DRAM main memory
+    name: DRAM
+    class: DRAM
+    attributes:
+      type: "HBM2"
+      width: 64
+      datawidth: 16
+      # We do not want to model memory bandwidth since Timeloop does not have
+      # enough information to do the appropriate throttling
+      # Memory bandwidth is accounted for in post-procesing
+      # 400 * 2^30 B / s * word / 2B * s / 10^9 cycles = 214.7 words/cycle
+      # shared_bandwidth: 215
+
+  - !Container # Accelerator
+    name: accel
+
+  - !Component # L3 buffer
+    name: global_buffer
+    class: smartbuffer_SRAM
+    # According to https://timeloop.csail.mit.edu/v4/input-formats/design/architecture
+    attributes:
+      # depth: # of rows
+      # depth: 4194304
+      # Increasing depth to account for spilling
+      depth: 134217728
+      # width: # of bits / row
+      width: 64
+      n_banks: 32
+      # datawidth: # of bits / word
+      datawidth: 16
+
+  ## Here comes our 2D mesh! ##
+  - !Container # Array of PEs
+    name: PE_col
+    spatial:
+      meshX: 256
+
+
+## 2D Array of PEs
+  - !Container # Array of PEs
+    name: PE
+    spatial:
+      meshY: 256
+
+  ## Each PE has a register file
+  - !Component # 8-register register file
+    name: reg_file
+    class: smartbuffer_RF
+    attributes:
+      depth: 8 # # of rows in storage
+      width: 16 # bits per row
+      update_fifo_depth: 2
+      datawidth: 16 # bits per word
+      read_bandwidth: 2  #TODO @Nandeeka -- how many words per cycle do you want?
+      write_bandwidth: 2 #TODO @Nandeeka -- how many words per cycle do you want?
+
+  - !Component # Let's get the max of two units
+    name: max
+    class: mac_max
+    attributes:
+      compare_width: 16
+
+  - !Component # Adder
+    name: add
+    class: fpmac_adder
+    attributes:
+      adder_width: 16
+      #exponent: 8
+      #mantissa: adder_width - exponent
+
+  - !Component # Multiplier
+    name: multiply
+    class: fpmac_multiplier 
+    attributes:
+      multiplier_width: 16
+          
+  - !Component # MAC unit
+    name: exponentiatial
+    class: mac_exponential ## TODO - myexponent
+    attributes:
+      multiplier_width: 16
+      adder_width: 16
+
