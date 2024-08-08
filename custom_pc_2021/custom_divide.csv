@@ -1,0 +1,6 @@
+technology,global_cycle_seconds,width|datawidth,width_a|datawidth_a,width_b|datawidth_b,energy(pJ),area(um^2),action,comment
+90nm,3.3e-9,32,32,32,550.24,542650,divide|read
+90nm,3.3e-9,32,32,32,0,542650,leak|write|update #we don't know what the leakage is
+
+# These numbers come from Xia et al., 2021: https://doi.org/10.3390/app11114988 
+# energy = 55.58 mW * 9.9ns = 550.242 pJ

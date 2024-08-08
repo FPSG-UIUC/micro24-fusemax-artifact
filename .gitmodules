@@ -4,3 +4,6 @@
 [submodule "timeloop-accelergy-exercises"]
 	path = timeloop-accelergy-exercises
 	url = git@github.com:Accelergy-Project/timeloop-accelergy-exercises.git
+[submodule "accelergy-library-plug-in"]
+	path = accelergy-library-plug-in
+	url = git@github.com:Accelergy-Project/accelergy-library-plug-in.git

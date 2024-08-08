@@ -1,0 +1,6 @@
+technology,global_cycle_seconds,width|datawidth,width_a|datawidth_a,width_b|datawidth_b,energy(pJ),area(um^2),action,comment
+45nm,5.0e-9,32,32,32,550.24,542.650,divide|read
+90nm,3.3e-9,32,32,32,0,542.650,leak|write|update #we don't know what the leakage is
+
+# These numbers come from Salehi et al., 2015: https://doi.org/10.1109/SECON.2015.7132972 
+# don't use this, haven't fixed it.
