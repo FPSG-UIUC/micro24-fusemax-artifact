@@ -97,9 +97,11 @@ Start Jupyter Lab:
 jupyter lab
 ```
 
-Open the Jupyter Lab in the browser and run `notebooks/figs.ipynb`. The same
-checks as **Step 3** above can be run from `notebooks/check.ipynb`. All figures
+Open the Jupyter Lab in the browser and run `notebooks/figs.ipynb`. All figures
 will display in the notebook.
+
+The installation checks (same as **Step 3**) can also be run via
+`notebooks/check.ipynb`.
 
 ### Option 2: Run from command line
 
@@ -108,5 +110,7 @@ cd src
 python run.py
 cd ..
 ```
+
+Note: Because paths are relative, this script *must* be run inside the `src` directory.
 
 All figures can be found in `data/generated/figs/`.
