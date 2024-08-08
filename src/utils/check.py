@@ -1,4 +1,5 @@
 import filecmp
+from pathlib import Path
 import subprocess
 
 import timeloopfe.v4 as tl
@@ -48,6 +49,9 @@ def accelergy():
         print("Accelergy Area OK")
     else:
         print("Accelergy Area ERROR")
+
+    output_dir = "../data/generated/check/accelergy_energy"
+    Path(output_dir).mkdir(parents=True, exist_ok=True)
 
     with open("../data/generated/check/accelergy_energy/accelergy_verbose.log", "w") as f:
         subprocess.run(["accelergy",

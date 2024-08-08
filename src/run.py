@@ -1,7 +1,12 @@
+import os
+import sys
+sys.path.insert(0, "..")
+
 from pathlib import Path
 
 from src.accel.flat import Flat
 from src.accel.flat_pe_proposal import FlatPEProposal
+from src.accel.matmul import MatMul
 from src.accel.proposal import Proposal
 from src.accel.stall_proposal import StallProposal
 from src.accel.unfused import Unfused
@@ -16,8 +21,10 @@ def attn(accel):
     with open(output_dir + "/attn-" + accel + ".csv", "w") as f:
         f.write("model,seq_len,traffic,latency,energy,util_2d,util_1d,")
 
-    models = ["BERT", "TrXL", "T5", "XLM"]
-    seq_lens = ["1K", "4K", "16K", "64K", "256K", "1M"]
+    models = ["BERT"]
+    seq_lens = ["1K"]
+    # models = ["BERT", "TrXL", "T5", "XLM"]
+    # seq_lens = ["1K", "4K", "16K", "64K", "256K", "1M"]
 
     started = False
     for model in models:
@@ -54,7 +61,7 @@ def attn(accel):
                 util_stats = proposal.eval_utilization(timeloop_dir)
                 names, utils_2d = proposal.eval_2d_util(timeloop_dir)
 
-            elif accel == "mapping":
+            elif accel == "binding":
                 proposal = Proposal(model, seq_len)
                 eval_stats = proposal.eval(timeloop_dir)
                 energy = proposal.eval_energy(timeloop_dir, "fusemax")
@@ -82,12 +89,14 @@ def end2end(platform):
     with open(output_dir + "/end2end-" + platform + ".csv", "w") as f:
         f.write("model,seq_len,traffic,latency,energy\n")
 
-    models = ["BERT", "TrXL", "T5", "XLM"]
-    seq_lens = ["1K", "4K", "16K", "64K", "256K", "1M"]
+    models = ["BERT"]
+    seq_lens = ["1K"]
+    # models = ["BERT", "TrXL", "T5", "XLM"]
+    # seq_lens = ["1K", "4K", "16K", "64K", "256K", "1M"]
 
     for model in models:
         for seq_len in seq_lens:
-            timeloop_dir = "data/generated/end2end/" + platform + "/" + model + "/" + seq_len
+            timeloop_dir = "../data/generated/end2end/" + platform + "/" + model + "/" + seq_len
             matmul = MatMul(platform, model, seq_len)
             eval_stats = matmul.eval(timeloop_dir, run_mapper=True)
             energy = matmul.eval_energy(timeloop_dir)
@@ -104,10 +113,13 @@ def pareto():
     with open(output_dir + "/pareto.csv", "w") as f:
         f.write("accel,model,PE_dim,traffic,mem_lat,comp_2d_lat,comp_1d_lat,latency,array_2d_area,area\n")
 
-    models = ["BERT", "TrXL", "T5", "XLM"]
-    Es = [64, 64, 64, 128]
+    models = ["BERT"]
+    Es = [64]
+    dims = [16]
+    # models = ["BERT", "TrXL", "T5", "XLM"]
+    # Es = [64, 64, 64, 128]
 
-    dims = [2**(i + 4) for i in range(6)]
+    # dims = [2**(i + 4) for i in range(6)]
     for model, E in zip(models, Es):
         multiplier = 1
         for PE_dim in dims:
@@ -136,11 +148,13 @@ def pareto():
                 break
 
 def main():
+    import time
+    tm = time.time()
     attn("unfused")
     attn("flat")
     attn("cascade")
     attn("arch")
-    attn("mapping")
+    attn("binding")
 
     end2end("flat")
     end2end("proposal")
@@ -155,6 +169,7 @@ def main():
     graph.draw_bar_graph(graph.load_data("latency", kernel="end2end", data_cb=lambda a, u: u / a), "Speedup", "fig10")
     graph.draw_bar_graph(graph.load_data("energy", kernel="end2end", data_cb=lambda a, u: a / u), "Energy Use", "fig11")
     graph.draw_pareto()
+    print("Time:", time.time() - tm)
 
 if __name__ == "__main__":
     main()

@@ -16,8 +16,8 @@ def load_data(col, kernel="attn", raw_cb=None, data_cb=None, skip=set(), pregene
         data_dir = "../data/pregenerated/"
     else:
         data_dir = "../data/generated/"
-    accels = {"unfused": "Unfused", "flat": "FLAT", "flat_pe_proposal": "+Cascade", "stall_proposal": "+Architecture", "proposal": "+Binding"}
-    archs = {"unfused": "flat", "flat": "flat", "flat_pe_proposal": "flat", "stall_proposal": "proposal", "proposal": "proposal"}
+    accels = {"unfused": "Unfused", "flat": "FLAT", "cascade": "+Cascade", "arch": "+Architecture", "binding": "+Binding"}
+    archs = {"unfused": "flat", "flat": "flat", "cascade": "flat", "arch": "proposal", "binding": "proposal"}
 
     data = {"model": [], "seq_len": [], "Accelerator": [], "data": []}
 
@@ -83,13 +83,16 @@ def load_data(col, kernel="attn", raw_cb=None, data_cb=None, skip=set(), pregene
 
     return pd.DataFrame.from_dict(data)
 
-def load_breakdown():
-    accels = {"flat": "FL", "flat_pe_proposal": "+C", "stall_proposal": "+A", "proposal": "+M"}
-    einsums = {"flat": ["QK", "AV"], "flat_pe_proposal": ["QK", "SLNV"], "stall_proposal": ["QK", "LM", "SLN", "SLD", "SLNV"], "proposal": ["QK", "LM", "SLN", "SLD", "SLNV"]}
+def load_breakdown(pregenerated=False):
+    accels = {"flat": "FL", "cascade": "+C", "arch": "+A", "binding": "+B"}
+    einsums = {"flat": ["QK", "AV"], "cascade": ["QK", "SLNV"], "arch": ["QK", "LM", "SLN", "SLD", "SLNV"], "binding": ["QK", "LM", "SLN", "SLD", "SLNV"]}
 
     data = {"seq_len": [], "Accelerator": [], "QK": [], "LM": [], "SLN": [], "SLD": [], "SLNV/AV": []}
     for accel in accels:
-        reader = CSVUtils("../data/pregenerated/attn-" + accel + ".csv")
+        if pregenerated:
+            reader = CSVUtils("../data/pregenerated/attn-" + accel + ".csv")
+        else:
+            reader = CSVUtils("../data/generated/attn-" + accel + ".csv")
 
         attn_csv = reader.get_all()
 
@@ -198,11 +201,11 @@ def draw_stacked_bars():
 
     plt.savefig(output_dir + "/transformer_ops.pdf", format="pdf", bbox_inches="tight")
 
-def draw_breakdown():
+def draw_breakdown(pregenerated=False):
     output_dir = "../data/generated/figs"
     Path(output_dir).mkdir(parents=True, exist_ok=True)
 
-    df = load_breakdown()
+    df = load_breakdown(pregenerated=pregenerated)
 
     # Increase the font size
     fontsize = 20
@@ -260,11 +263,15 @@ def draw_breakdown():
 
     plt.savefig(output_dir + "/fig7.pdf", format="pdf", bbox_inches="tight")
 
-def draw_pareto():
+def draw_pareto(pregenerated=False):
     output_dir = "../data/generated/figs"
     Path(output_dir).mkdir(parents=True, exist_ok=True)
 
-    df = pd.read_csv("../data/pregenerated/pareto.csv")
+    if pregenerated:
+        df = pd.read_csv("../data/pregenerated/pareto.csv")
+    else:
+        df = pd.read_csv("../data/generated/pareto.csv")
+
     df = df.rename({"model": "Model"}, axis=1)
 
     # Convert from um^2 to cm^2
