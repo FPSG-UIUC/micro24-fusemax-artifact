@@ -1,0 +1,33 @@
+problem:
+  version: '0.4'
+  shape:
+
+    name: SN
+
+    dimensions: [B, H, M, P]
+
+    data_spaces:
+    - name: QK
+      projection:
+      - - - B
+      - - - H
+      - - - M
+      - - - P
+    - name: M
+      projection:
+      - - - B
+      - - - H
+      - - - P
+    - name: SN
+      projection:
+      - - - B
+      - - - H
+      - - - M
+      - - - P
+      read_write: True
+
+  instance:
+    B: 64
+    H: 16
+    M: 4096
+    P: 4096

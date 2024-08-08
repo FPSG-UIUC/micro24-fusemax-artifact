@@ -1,0 +1,35 @@
+problem:
+  version: '0.4'
+  shape:
+
+    name: QK
+
+    dimensions: [B, E, H, M, P]
+
+    data_spaces:
+    - name: Q
+      projection:
+      - - - B
+      - - - E
+      - - - H
+      - - - P
+    - name: K
+      projection:
+      - - - B
+      - - - E
+      - - - H
+      - - - M
+    - name: QK
+      projection:
+      - - - B
+      - - - H
+      - - - M
+      - - - P
+      read_write: True
+
+  instance:
+    B: 64
+    E: 256
+    H: 16
+    M: 4096
+    P: 4096

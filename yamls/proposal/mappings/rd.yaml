@@ -1,0 +1,36 @@
+mapping:
+- target: DRAM
+  type: temporal
+  factors: [B=64, H=16, M=16, P=1]
+  permutation: [M, P, H, B]
+
+- target: DRAM
+  type: dataspace
+  keep: []
+  bypass: [SPD, SLD, RD]
+
+- target: L3
+  type: temporal
+  factors: [B=1, H=1, M=1, P=16]
+  permutation: [P, M, H, B]
+
+- target: L3
+  type: dataspace
+  keep: [RD]
+  bypass: [SPD, SLD]
+
+- target: PE
+  type: spatial
+  factors: [B=1, H=1, M=1, P=256]
+  split: 5
+  permutation: [M, P, H, B]
+
+- target: reg_file
+  type: temporal
+  factors: [B=1, H=1, M=1, P=1]
+  permutation: [M, P, H, B]
+
+- target: reg_file
+  type: dataspace
+  keep: [SPD, SLD, RD]
+  bypass: []

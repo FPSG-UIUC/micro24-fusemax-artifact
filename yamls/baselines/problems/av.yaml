@@ -1,0 +1,35 @@
+problem:
+  version: '0.4'
+  shape:
+
+    name: AV
+
+    dimensions: [B, F, H, M, P]
+
+    data_spaces:
+    - name: A
+      projection:
+      - - - B
+      - - - H
+      - - - M
+      - - - P
+    - name: V
+      projection:
+      - - - B
+      - - - F
+      - - - H
+      - - - M
+    - name: AV
+      projection:
+      - - - B
+      - - - F
+      - - - H
+      - - - P
+      read_write: True
+
+  instance:
+    B: 64
+    F: 256
+    H: 16
+    M: 4096
+    P: 4096

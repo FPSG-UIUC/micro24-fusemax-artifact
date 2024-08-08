@@ -1,0 +1,49 @@
+constraints:
+  version: 0.4
+  targets:
+  - target: DRAM
+    type: temporal
+    factors: [B=64, H=16]
+    permutation: [E, M, P, H, B]
+
+  - target: DRAM
+    type: dataspace
+    keep: [Q, K, QK]
+    bypass: []
+
+  - target: L3
+    type: temporal
+    factors: [B=1, H=1]
+    permutation: [B, H]
+
+  - target: reg_file_1d
+    type: temporal
+    factors: [B=1, E=1, H=1, M=1, P=1]
+    permutation: [E, P, M, H, B]
+
+  - target: reg_file_1d
+    type: dataspace
+    keep: []
+    bypass: [Q, K, QK]
+
+  - target: PE_col
+    type: spatial
+    factors: [B=1, E=1, H=1, M=1, P=256]
+    split: 5
+    permutation: [E, M, P, H, B]
+
+  - target: PE
+    type: spatial
+    factors: [B=1, E=1, H=1, M=256, P=1]
+    split: 0
+    permutation: [E, M, P, H, B]
+
+  - target: reg_file
+    type: temporal
+    factors: [B=1, E=1, H=1, M=1, P=1]
+    permutation: [E, M, P, H, B]
+
+  - target: reg_file
+    type: dataspace
+    keep: [Q, K, QK]
+    bypass: []

@@ -1,0 +1,56 @@
+architecture:
+  # ============================================================
+  # Architecture Description
+  # ============================================================
+  version: 0.4
+  nodes: # Top-level is hierarchical
+  - !Container # Top-level system
+    name: system
+    attributes:
+      # 940 MHz
+      global_cycle_seconds: 1.0638297873e-9
+      # Based on TPUv3
+      technology: "16nm"
+
+  - !Component # DRAM main memory
+    name: DRAM
+    class: DRAM
+    attributes:
+      type: "LPDDR4"
+      width: 64
+      datawidth: 16
+
+  - !Component # L3 buffer
+    name: L3
+    class: smartbuffer_SRAM
+    # According to https://timeloop.csail.mit.edu/v4/input-formats/design/architecture
+    attributes:
+      # 16 MB / 512 B/row
+      depth: 32768
+      # width: # of bits / row
+      # row: 256 values * 16 bits / value
+      width: 4096
+      n_banks: 32
+      # datawidth: # of bits / word
+      datawidth: 16
+
+  - !Container
+    name: PE
+    spatial:
+      meshX: 256
+
+  - !Component
+    name: reg_file
+    class: storage
+    subclass: aladdin_register
+    attributes:
+      depth: 32
+      width: 16
+      datawidth: 16
+
+  - !Component # MAC unit
+    name: mac
+    class: intmac
+    attributes:
+      multiplier_width: 16
+      adder_width: 16

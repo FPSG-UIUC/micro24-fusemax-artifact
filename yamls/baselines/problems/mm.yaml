@@ -1,0 +1,28 @@
+# Matrix multiplication
+problem:
+  version: '0.4'
+  shape:
+
+    name: MatMul
+
+    dimensions: [K, M, N]
+
+    data_spaces:
+    - name: A
+      projection:
+      - - - K
+      - - - M
+    - name: B
+      projection:
+      - - - K
+      - - - N
+    - name: Z
+      projection:
+      - - - M
+      - - - N
+      read_write: True
+
+  instance:
+    K: 4096
+    M: 262144
+    N: 4096

@@ -1,0 +1,85 @@
+architecture:
+  # ============================================================
+  # Architecture Description
+  # ============================================================
+  version: 0.4
+  nodes: # Top-level is hierarchical
+  - !Container # Top-level system
+    name: system
+    attributes:
+      # 940 MHz
+      global_cycle_seconds: 1.0638297873e-9
+      # Based on TPUv3
+      technology: "16nm"
+
+  - !Component # DRAM main memory
+    name: DRAM
+    class: DRAM
+    attributes:
+      type: "LPDDR4"
+      width: 64
+      datawidth: 16
+      # We do not want to model memory bandwidth since Timeloop does not have
+      # enough information to do the appropriate throttling
+      # Memory bandwidth is accounted for in post-procesing
+      # 400 * 2^30 B / s * word / 2B * s / 10^9 cycles = 214.7 words/cycle
+      # shared_bandwidth: 215
+
+  - !Container # Accelerator
+    name: accel
+
+  - !Component # L3 buffer
+    name: L3
+    class: smartbuffer_SRAM
+    # According to https://timeloop.csail.mit.edu/v4/input-formats/design/architecture
+    attributes:
+      # depth: # of rows
+      # 16 MB / 512 B/row
+      depth: 32768
+      # width: # of bits / row
+      # row: 256 values * 16 bits / value
+      width: 4096
+      n_banks: 32
+      # datawidth: # of bits / word
+      datawidth: 16
+
+  - !Component # Register file of the 1D PE array buffer
+    name: reg_file_1d
+    class: storage
+    subclass: aladdin_register
+    # According to https://timeloop.csail.mit.edu/v4/input-formats/design/architecture
+    attributes:
+      # depth: # of rows
+      depth: 8192 # 32 * 256
+      # width: # of bits / row
+      width: 16
+      # datawidth: # of bits / word
+      datawidth: 16
+
+  - !Container # Array of PEs
+    name: PE_col
+    spatial:
+      meshX: 256
+
+  - !Container # Array of PEs
+    name: PE
+    spatial:
+      meshY: 256
+
+  - !Parallel # Register for each data type
+    nodes:
+    - !Component
+      name: reg_file
+      class: storage
+      subclass: aladdin_register
+      attributes:
+        depth: 16
+        width: 16           # width in bits
+        datawidth: 16
+
+  - !Component # MAC unit
+    name: mac
+    class: intmac
+    attributes:
+      multiplier_width: 16
+      adder_width: 16

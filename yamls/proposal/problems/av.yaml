@@ -1,0 +1,36 @@
+problem:
+  version: '0.4'
+  shape:
+
+    name: AV
+
+    dimensions: [B, F, H, P]
+
+    # Note: Since rank names can only be 1 character long
+    # M = M1 and N = M0
+    data_spaces:
+    - name: RNV
+      projection:
+      - - - B
+      - - - F
+      - - - H
+      - - - P
+    - name: RD
+      projection:
+      - - - B
+      - - - H
+      - - - P
+    - name: AV
+      projection:
+      - - - B
+      - - - F
+      - - - H
+      - - - P
+      read_write: True
+
+  instance:
+    B: 64
+    F: 256
+    H: 16
+    M: 16
+    P: 4096

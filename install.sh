@@ -4,12 +4,14 @@ pip install -r requirements.txt
 
 # Install Timeloop
 cd accelergy-timeloop-infrastructure
-cd ..
+make install_accelergy
+pip3 install ./src/timeloopfe
+make install_timeloop
 
 # Install Accelergy
-cd accelergy-library-plug-in
+cd src/accelergy-library-plug-in
 pip install .
-cd ..
+cd ../../..
 cp -r custom_pc_2021 env/share/accelergy/estimation_plug_ins/accelergy-library-plugin/library
 
 jupyter lab

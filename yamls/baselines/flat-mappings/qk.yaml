@@ -1,0 +1,62 @@
+mapping:
+- target: DRAM
+  type: temporal
+  factors: [B=64, E=1, H=16, M=1, P=1]
+  permutation: [E, M, P, H, B]
+
+- target: DRAM
+  type: dataspace
+  keep: [Q, K]
+  bypass: [QK]
+
+- target: L3
+  type: temporal
+  factors: [B=1, E=1, H=1, M=16, P=4096]
+  permutation: [P, E, M, H, B]
+
+- target: L3
+  type: dataspace
+  keep: [QK]
+  bypass: [Q, K]
+
+- target: PE_col
+  type: spatial
+  factors: [B=1, E=256, H=1, M=1, P=1]
+  split: 5
+  permutation: [E, M, P, H, B]
+
+- target: PE
+  type: spatial
+  factors: [B=1, E=1, H=1, M=256, P=1]
+  split: 0
+  permutation: [E, M, P, H, B]
+
+- target: reg0
+  type: temporal
+  factors: [B=1, E=1, H=1, M=1, P=1]
+  permutation: [E, M, P, H, B]
+
+- target: reg0
+  type: dataspace
+  keep: [Q]
+  bypass: [K, QK]
+
+- target: reg1
+  type: temporal
+  factors: [B=1, E=1, H=1, M=1, P=1]
+  permutation: [E, M, P, H, B]
+
+- target: reg1
+  type: dataspace
+  keep: [K]
+  bypass: [Q, QK]
+
+- target: reg2
+  type: temporal
+  factors: [B=1, E=1, H=1, M=1, P=1]
+  permutation: [E, M, P, H, B]
+
+- target: reg2
+  type: dataspace
+  keep: [QK]
+  bypass: [Q, K]

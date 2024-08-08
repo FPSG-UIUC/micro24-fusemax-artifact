@@ -1,0 +1,3 @@
+[submodule "accelergy-timeloop-infrastructure"]
+	path = accelergy-timeloop-infrastructure
+	url = git@github.com:Accelergy-Project/accelergy-timeloop-infrastructure.git

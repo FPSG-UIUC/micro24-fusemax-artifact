@@ -1,0 +1,36 @@
+problem:
+  version: '0.4'
+  shape:
+
+    name: RM
+
+    dimensions: [B, H, M, P]
+
+    # Note: Since rank names can only be 1 character long
+    # M = M1 and N = M0
+    data_spaces:
+    - name: LM
+      projection:
+      - - - B
+      - - - H
+      - - - M
+      - - - P
+    - name: RM0
+      projection:
+      - - - B
+      - - - H
+      - - - M
+      - - - P
+    - name: RM
+      projection:
+      - - - B
+      - - - H
+      - - - M
+      - - - P
+      read_write: True
+
+  instance:
+    B: 64
+    H: 16
+    M: 16
+    P: 4096

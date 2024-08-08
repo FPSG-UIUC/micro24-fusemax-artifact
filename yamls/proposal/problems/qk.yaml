@@ -1,0 +1,40 @@
+problem:
+  version: '0.4'
+  shape:
+
+    name: QK
+
+    dimensions: [B, E, H, M, N, P]
+
+    # Note: Since rank names can only be 1 character long
+    # M = M1 and N = M0
+    data_spaces:
+    - name: Q
+      projection:
+      - - - B
+      - - - E
+      - - - H
+      - - - P
+    - name: BK
+      projection:
+      - - - B
+      - - - E
+      - - - H
+      - - - M
+      - - - N
+    - name: QK
+      projection:
+      - - - B
+      - - - H
+      - - - M
+      - - - N
+      - - - P
+      read_write: True
+
+  instance:
+    B: 64
+    E: 256
+    H: 16
+    M: 16
+    N: 256
+    P: 4096
