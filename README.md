@@ -102,6 +102,8 @@ Accelergy Energy OK
 
 ## Run Experiments
 
+Expected run time: 9 hours
+
 ### Option 1: Use Jupyter Lab
 
 Start Jupyter Lab:
