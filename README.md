@@ -7,6 +7,11 @@ installation options for the artifact evaluation.
 
 ## System Requirements
 
+### Hardware
+
+- x86-64 CPU
+- 5GB disk space
+
 ### Software
 
 - Ubuntu 20.04 with `sudo` access
@@ -27,6 +32,13 @@ cd micro24-fusemax-artifact
 ```
 
 ### Step 1: Create the virtual environment
+
+If not already available, install `venv`:
+```bash
+sudo apt-get install python3.8-venv
+```
+
+Create the environment:
 
 ```bash
 python -m venv env
@@ -98,7 +110,8 @@ jupyter lab
 ```
 
 Open the Jupyter Lab in the browser and run `notebooks/figs.ipynb`. All figures
-will display in the notebook.
+will display in the notebook. Expected outputs can be found in Figures 6-12 of
+the paper or in `data/pregenerated/figs/`.
 
 The installation checks (same as **Step 3**) can also be run via
 `notebooks/check.ipynb`.
@@ -113,4 +126,6 @@ cd ..
 
 Note: Because paths are relative, this script *must* be run inside the `src` directory.
 
-All figures can be found in `data/generated/figs/`.
+Generated figures can be found in `data/generated/figs/`.  Expected outputs can
+be found in Figures 6-12 of the paper or in `data/pregenerated/figs/`.
+
