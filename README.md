@@ -3,7 +3,7 @@
 This repository provides the evaluation setups for the MICRO24 artifact
 evaluation for the paper *FuseMax: Leveraging Extended Einsums to Optimize
 Attention Accelerator Design*. We provide both a Jupyter lab and script-based
-installation options for the artifact evaluation.
+options for the artifact evaluation.
 
 ## System Requirements
 
