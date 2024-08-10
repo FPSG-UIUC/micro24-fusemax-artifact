@@ -32,6 +32,10 @@ git clone --recurse-submodules git@github.com:FPSG-UIUC/micro24-fusemax-artifact
 cd micro24-fusemax-artifact
 ```
 
+### Option 1: Docker
+
+TODO
+
 ### Option 2: Native Installation
 
 Expected installation time: 20 minutes
@@ -50,7 +54,7 @@ python -m venv env
 source env/bin/activate
 ```
 
-### Step 2: Install dependencies
+#### Step 2: Install dependencies
 
 Install prerequisites:
 
@@ -83,7 +87,7 @@ cp -r setup/common/custom_pc_2021 env/share/accelergy/estimation_plug_ins/accele
 More information about the Accelergy library plug-in can be found
 [here](https://github.com/Accelergy-Project/accelergy-library-plug-in).
 
-### Step 3: Check Installation
+#### Step 3: Check Installation
 
 Check that all imports work as desired.
 
