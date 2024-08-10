@@ -90,25 +90,25 @@ class StableSoftmax(Cascade):
     def eval_components(self, output_dir):
         args = ("M", output_dir + "/m")
         self.build_input(*args)
-        self.run_model(*args, "../yamls/baselines/arch-1d.yaml", self.__timeloop_callback)
+        self.run_model(*args, "../inputs/yamls/baselines/arch-1d.yaml", self.__timeloop_callback)
         m_rd, m_wr = self.collect_mem_traffic(*args, "L3", self.prop_spilled)
         m_mem_lat, m_comp_lat = self.collect_latency(*args, m_rd + m_wr, mem_bw=self.mem_bw)
 
         args = ("SN", output_dir + "/sn")
         self.build_input(*args)
-        self.run_model(*args, "../yamls/baselines/arch-1d.yaml", self.__timeloop_callback)
+        self.run_model(*args, "../inputs/yamls/baselines/arch-1d.yaml", self.__timeloop_callback)
         sn_rd, sn_wr = self.collect_mem_traffic(*args, "L3", self.prop_spilled)
         sn_mem_lat, sn_comp_lat = self.collect_latency(*args, sn_rd + sn_wr, mem_bw=self.mem_bw)
 
         args = ("SD", output_dir + "/sd")
         self.build_input(*args)
-        self.run_model(*args, "../yamls/baselines/arch-1d.yaml", self.__timeloop_callback)
+        self.run_model(*args, "../inputs/yamls/baselines/arch-1d.yaml", self.__timeloop_callback)
         sd_rd, sd_wr = self.collect_mem_traffic(*args, "L3", self.prop_spilled)
         sd_mem_lat, sd_comp_lat = self.collect_latency(*args, sd_rd + sd_wr, mem_bw=self.mem_bw)
 
         args = ("A", output_dir + "/a")
         self.build_input(*args)
-        self.run_model(*args, "../yamls/baselines/arch-1d.yaml", self.__timeloop_callback)
+        self.run_model(*args, "../inputs/yamls/baselines/arch-1d.yaml", self.__timeloop_callback)
         a_rd, a_wr = self.collect_mem_traffic(*args, "L3", self.prop_spilled)
         a_mem_lat, a_comp_lat = self.collect_latency(*args, a_rd + a_wr, mem_bw=self.mem_bw)
 

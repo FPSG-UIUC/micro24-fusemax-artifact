@@ -85,7 +85,7 @@ class MatMul(Cascade):
         self.build_input(einsum, output_dir)
 
         if run_mapper:
-            self.run_mapper(einsum, output_dir, "../yamls/proposal/arch-2d.yaml", spec_callback=self.__timeloop_callback)
+            self.run_mapper(einsum, output_dir, "../inputs/yamls/proposal/arch-2d.yaml", spec_callback=self.__timeloop_callback)
 
         traffic = sum(self.collect_mem_traffic(einsum, output_dir, "L3", source="mapper"))
         mem_lat, comp_lat = self.collect_latency(einsum, output_dir, traffic, source="mapper")

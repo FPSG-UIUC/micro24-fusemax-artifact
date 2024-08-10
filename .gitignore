@@ -163,5 +163,4 @@ cython_debug/
 
 # Other
 *.swp
-data/generated/
-work/
+workspace/outputs/generated/

@@ -13,9 +13,9 @@ from src.utils.csv_utils import CSVUtils
 
 def load_data(col, kernel="attn", raw_cb=None, data_cb=None, skip=set(), pregenerated=False):
     if pregenerated:
-        data_dir = "../data/pregenerated/"
+        data_dir = "../outputs/pregenerated/"
     else:
-        data_dir = "../data/generated/"
+        data_dir = "../outputs/generated/"
     accels = {"unfused": "Unfused", "flat": "FLAT", "cascade": "+Cascade", "arch": "+Architecture", "binding": "+Binding"}
     archs = {"unfused": "flat", "flat": "flat", "cascade": "flat", "arch": "proposal", "binding": "proposal"}
 
@@ -90,9 +90,9 @@ def load_breakdown(pregenerated=False):
     data = {"seq_len": [], "Accelerator": [], "QK": [], "LM": [], "SLN": [], "SLD": [], "SLNV/AV": []}
     for accel in accels:
         if pregenerated:
-            reader = CSVUtils("../data/pregenerated/attn-" + accel + ".csv")
+            reader = CSVUtils("../outputs/pregenerated/attn-" + accel + ".csv")
         else:
-            reader = CSVUtils("../data/generated/attn-" + accel + ".csv")
+            reader = CSVUtils("../outputs/generated/attn-" + accel + ".csv")
 
         attn_csv = reader.get_all()
 
@@ -116,7 +116,7 @@ def load_breakdown(pregenerated=False):
 
 
 def draw_bar_graph(data, ylabel, fn, ymax=None):
-    output_dir = "../data/generated/figs"
+    output_dir = "../outputs/generated/figs"
     Path(output_dir).mkdir(parents=True, exist_ok=True)
 
     # Increase the font size
@@ -171,38 +171,8 @@ def draw_bar_graph(data, ylabel, fn, ymax=None):
 
     plt.savefig(output_dir + "/" + fn + ".pdf", format="pdf", bbox_inches="tight")
 
-def draw_stacked_bars():
-    output_dir = "../data/generated/figs"
-    Path(output_dir).mkdir(parents=True, exist_ok=True)
-
-    df = pd.read_csv("../data/pregenerated/transformer_ops.csv")
-
-    # Increase the font size
-    plt.rcParams.update({'font.size': 20})
-
-    # Create the chart
-    fig, ax = plt.subplots()
-
-    # Calculate total for each category
-    df["Matrix Multiplication"] = df["Other"] + df["Matrix Multiplication"]
-    df["Attention"] = df["Attention"] + df["Matrix Multiplication"]
-
-    # Plot individual category bars on top (not stacked)
-    sns.barplot(x="seq_len", y="Attention", data=df, label="Attn", color="#FFB566")
-    sns.barplot(x="seq_len", y="Matrix Multiplication", data=df, label="Linear", color="#99C3FF")
-    sns.barplot(x="seq_len", y="Other", data=df, label="Other", color="#BEFF99")
-
-    # Add labels and title
-    plt.xlabel("Sequence Length")
-    plt.ylabel("Proportion of Compute")
-
-    # Add legend
-    plt.legend()
-
-    plt.savefig(output_dir + "/transformer_ops.pdf", format="pdf", bbox_inches="tight")
-
 def draw_breakdown(pregenerated=False):
-    output_dir = "../data/generated/figs"
+    output_dir = "../outputs/generated/figs"
     Path(output_dir).mkdir(parents=True, exist_ok=True)
 
     df = load_breakdown(pregenerated=pregenerated)
@@ -264,13 +234,13 @@ def draw_breakdown(pregenerated=False):
     plt.savefig(output_dir + "/fig7.pdf", format="pdf", bbox_inches="tight")
 
 def draw_pareto(pregenerated=False):
-    output_dir = "../data/generated/figs"
+    output_dir = "../outputs/generated/figs"
     Path(output_dir).mkdir(parents=True, exist_ok=True)
 
     if pregenerated:
-        df = pd.read_csv("../data/pregenerated/pareto.csv")
+        df = pd.read_csv("../outputs/pregenerated/pareto.csv")
     else:
-        df = pd.read_csv("../data/generated/pareto.csv")
+        df = pd.read_csv("../outputs/generated/pareto.csv")
 
     df = df.rename({"model": "Model"}, axis=1)
 

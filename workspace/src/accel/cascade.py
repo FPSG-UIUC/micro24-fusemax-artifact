@@ -197,10 +197,10 @@ class Cascade:
 
         inputs = {}
 
-        with open("../yamls/" + yaml_dir + "/problems/" + einsum.lower() + ".yaml", "r") as f:
+        with open("../inputs/yamls/" + yaml_dir + "/problems/" + einsum.lower() + ".yaml", "r") as f:
             inputs.update(yaml.load(f))
 
-        with open("../yamls/" + yaml_dir + "/" + mapping_dir + "/" + einsum.lower() + ".yaml", "r") as f:
+        with open("../inputs/yamls/" + yaml_dir + "/" + mapping_dir + "/" + einsum.lower() + ".yaml", "r") as f:
             inputs.update(yaml.load(f))
 
         # Update the problem only if using attention
@@ -388,13 +388,13 @@ class Cascade:
     # Note: Assumes that build_accelergy has already been run
     def run_accelergy_area(self, output_dir, arch, spec_callback=None):
         spec_2d = tl.Specification.from_yaml_files(
-            "../yamls/area_energy/architecture/accel_" + arch + "/accel-top-2d-path.yaml",
+            "../inputs/yamls/area_energy/architecture/accel_" + arch + "/accel-top-2d-path.yaml",
             # We don't actually use it but tl requires it to be defined
-            "../yamls/area_energy/architecture/pseudo/problem-pseudo.yaml",
-            "../yamls/area_energy/architecture/pseudo/mapper-pseudo.yaml",
+            "../inputs/yamls/area_energy/architecture/pseudo/problem-pseudo.yaml",
+            "../inputs/yamls/area_energy/architecture/pseudo/mapper-pseudo.yaml",
             # Shared stuff
-            "../yamls/area_energy/architecture/components/*.yaml",
-            "../yamls/area_energy/architecture/variables.yaml",
+            "../inputs/yamls/area_energy/architecture/components/*.yaml",
+            "../inputs/yamls/area_energy/architecture/variables.yaml",
         )
 
         if spec_callback is not None:
@@ -407,13 +407,13 @@ class Cascade:
         )
 
         spec_1d = tl.Specification.from_yaml_files(
-            "../yamls/area_energy/architecture/accel_" + arch + "/accel-top-1d-path.yaml",
+            "../inputs/yamls/area_energy/architecture/accel_" + arch + "/accel-top-1d-path.yaml",
             # We don't actually use it but tl requires it to be defined
-            "../yamls/area_energy/architecture/pseudo/problem-pseudo.yaml",
-            "../yamls/area_energy/architecture/pseudo/mapper-pseudo.yaml",
+            "../inputs/yamls/area_energy/architecture/pseudo/problem-pseudo.yaml",
+            "../inputs/yamls/area_energy/architecture/pseudo/mapper-pseudo.yaml",
             # Shared stuff
-            "../yamls/area_energy/architecture/components/*.yaml",
-            "../yamls/area_energy/architecture/variables.yaml",
+            "../inputs/yamls/area_energy/architecture/components/*.yaml",
+            "../inputs/yamls/area_energy/architecture/variables.yaml",
         )
 
         if spec_callback is not None:
@@ -452,8 +452,8 @@ class Cascade:
             output_dir +
             "/problem+mapping.yaml",
             arch_yaml,
-            "../yamls/baselines/mapper.yaml",
-            "../timeloop-accelergy-exercises/workspace/example_designs/example_designs/_components/*",
+            "../inputs/yamls/baselines/mapper.yaml",
+            "../inputs/timeloop-accelergy-exercises/workspace/example_designs/example_designs/_components/*",
         )
 
         if spec_callback is not None:
@@ -467,7 +467,7 @@ class Cascade:
             output_dir +
             "/problem+mapping.yaml",
             arch_yaml,
-            "../timeloop-accelergy-exercises/workspace/example_designs/example_designs/_components/*",
+            "../inputs/timeloop-accelergy-exercises/workspace/example_designs/example_designs/_components/*",
         )
 
         if spec_callback is not None:

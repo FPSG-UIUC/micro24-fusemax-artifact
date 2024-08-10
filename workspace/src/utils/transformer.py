@@ -14,7 +14,7 @@ class Transformer:
 
     @classmethod
     def from_csv(cls, *matches):
-        csv = CSVUtils("../data/pregenerated/flat_validation.csv")
+        csv = CSVUtils("../outputs/pregenerated/flat_validation.csv")
         ranks = csv.query(matches, ["B", "D", "E", "F", "H", "M", "P", "S"])
 
         return cls(**ranks)

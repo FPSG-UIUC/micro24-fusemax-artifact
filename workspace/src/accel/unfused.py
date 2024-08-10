@@ -53,7 +53,7 @@ class Unfused(Cascade):
         args = ("QK", output_dir + "/qk")
         self.build_input(*args)
         if run_mapper:
-            self.run_mapper(*args, "../yamls/proposal/arch-2d.yaml", spec_callback=self.__timeloop_callback)
+            self.run_mapper(*args, "../inputs/yamls/proposal/arch-2d.yaml", spec_callback=self.__timeloop_callback)
 
         qk_traffic = sum(self.collect_mem_traffic(*args, "L3", source="mapper"))
         qk_mem_lat, qk_comp_lat = self.collect_latency(*args, qk_traffic, source="mapper")
@@ -61,7 +61,7 @@ class Unfused(Cascade):
         args = ("AV", output_dir + "/av")
         self.build_input(*args)
         if run_mapper:
-            self.run_mapper(*args, "../yamls/proposal/arch-2d.yaml", spec_callback=self.__timeloop_callback)
+            self.run_mapper(*args, "../inputs/yamls/proposal/arch-2d.yaml", spec_callback=self.__timeloop_callback)
 
         av_traffic = sum(self.collect_mem_traffic(*args, "L3", source="mapper"))
         av_mem_lat, av_comp_lat = self.collect_latency(*args, av_traffic, source="mapper")

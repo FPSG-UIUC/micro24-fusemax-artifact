@@ -101,7 +101,7 @@ class Flat(Cascade):
 
         args = ("QK", output_dir + "/qk")
         self.build_input(*args)
-        self.run_model(*args, "../yamls/baselines/arch-2d.yaml", self.__timeloop_callback)
+        self.run_model(*args, "../inputs/yamls/baselines/arch-2d.yaml", self.__timeloop_callback)
 
         # If we are validating, do not use optimal spilling
         qk_rd, qk_wr = self.collect_mem_traffic(*args, "L3", prop_spilled, opt_spill=not validation)
@@ -111,7 +111,7 @@ class Flat(Cascade):
 
         args = ("AV", output_dir + "/av")
         self.build_input(*args)
-        self.run_model(*args, "../yamls/baselines/arch-2d.yaml", self.__timeloop_callback)
+        self.run_model(*args, "../inputs/yamls/baselines/arch-2d.yaml", self.__timeloop_callback)
 
         # If we are validating, do not use optimal spilling
         av_rd, av_wr = self.collect_mem_traffic(*args, "L3", prop_spilled, opt_spill=not validation)

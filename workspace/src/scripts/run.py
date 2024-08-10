@@ -15,7 +15,7 @@ from src.utils.pareto import *
 
 
 def attn(accel):
-    output_dir = "../data/generated"
+    output_dir = "../outputs/generated"
     Path(output_dir).mkdir(parents=True, exist_ok=True)
 
     with open(output_dir + "/attn-" + accel + ".csv", "w") as f:
@@ -27,7 +27,7 @@ def attn(accel):
     started = False
     for model in models:
         for seq_len in seq_lens:
-            timeloop_dir = "../data/generated/attn/" + accel + "/" + model + "/" + seq_len
+            timeloop_dir = "../outputs/generated/attn/" + accel + "/" + model + "/" + seq_len
             if accel == "unfused":
                 unfused = Unfused(model, seq_len)
                 eval_stats = unfused.eval(timeloop_dir, run_mapper=True)
@@ -39,7 +39,7 @@ def attn(accel):
                 names, utils_2d = [], []
 
             elif accel == "flat":
-                timeloop_flat = Flat("cloud", model, seq_len, "../data/pregenerated/flat_validation.csv")
+                timeloop_flat = Flat("cloud", model, seq_len, "../outputs/pregenerated/flat_validation.csv")
                 eval_stats = timeloop_flat.eval(timeloop_dir, False)
                 energy = timeloop_flat.eval_energy(timeloop_dir, "flat")
                 util_stats = timeloop_flat.eval_utilization(timeloop_dir, False)
@@ -81,7 +81,7 @@ def attn(accel):
                 f.write(",".join([str(val) for val in data]) + "\n")
 
 def end2end(platform):
-    output_dir = "../data/generated"
+    output_dir = "../outputs/generated"
     Path(output_dir).mkdir(parents=True, exist_ok=True)
 
     with open(output_dir + "/end2end-" + platform + ".csv", "w") as f:
@@ -92,7 +92,7 @@ def end2end(platform):
 
     for model in models:
         for seq_len in seq_lens:
-            timeloop_dir = "../data/generated/end2end/" + platform + "/" + model + "/" + seq_len
+            timeloop_dir = "../outputs/generated/end2end/" + platform + "/" + model + "/" + seq_len
             matmul = MatMul(platform, model, seq_len)
             eval_stats = matmul.eval(timeloop_dir, run_mapper=True)
             energy = matmul.eval_energy(timeloop_dir)
@@ -103,7 +103,7 @@ def end2end(platform):
                 f.write(",".join([str(val) for val in data]) + "\n")
 
 def pareto():
-    output_dir = "../data/generated"
+    output_dir = "../outputs/generated"
     Path(output_dir).mkdir(parents=True, exist_ok=True)
 
     with open(output_dir + "/pareto.csv", "w") as f:
@@ -111,8 +111,8 @@ def pareto():
 
     models = ["BERT", "TrXL", "T5", "XLM"]
     Es = [64, 64, 64, 128]
-
     dims = [2**(i + 4) for i in range(6)]
+
     for model, E in zip(models, Es):
         multiplier = 1
         for PE_dim in dims:

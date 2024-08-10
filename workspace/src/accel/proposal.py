@@ -92,9 +92,9 @@ class Proposal(Cascade):
             self.build_input(*args)
 
             if einsum in self.einsums_2d:
-                arch = "../yamls/proposal/" + arch_prefix + "arch-2d.yaml"
+                arch = "../inputs/yamls/proposal/" + arch_prefix + "arch-2d.yaml"
             else:
-                arch = "../yamls/proposal/" + arch_prefix + "arch-1d.yaml"
+                arch = "../inputs/yamls/proposal/" + arch_prefix + "arch-1d.yaml"
 
             self.run_model(*args, arch, spec_callback)
 
