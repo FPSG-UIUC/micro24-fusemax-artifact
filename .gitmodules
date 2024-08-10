@@ -1,6 +1,9 @@
 [submodule "accelergy-timeloop-infrastructure"]
-	path = accelergy-timeloop-infrastructure
+	path = setup/common/accelergy-timeloop-infrastructure
 	url = git@github.com:Accelergy-Project/accelergy-timeloop-infrastructure.git
 [submodule "timeloop-accelergy-exercises"]
 	path = timeloop-accelergy-exercises
 	url = git@github.com:Accelergy-Project/timeloop-accelergy-exercises.git
+[submodule "setup/docker/timeloop-accelergy-pytorch"]
+	path = setup/docker/timeloop-accelergy-pytorch
+	url = git@github.com:Accelergy-Project/timeloop-accelergy-pytorch.git
