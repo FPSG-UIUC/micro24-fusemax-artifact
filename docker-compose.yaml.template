@@ -1,0 +1,43 @@
+#
+# Docker-compose file for running 6.812/6.825 labs
+#
+# Notes:
+#    The READMEs are put in ./workspace
+#    The workspace will be owned by $USER_UID:$USER_GID
+#
+
+# Run as follows:
+#
+#    1) Put this file in an otherwise empty directory
+#    2) Cd to the directory containing this file
+#    3) Change USER_UID and USER_GID to the desired owner of your files (echo $UID )
+#    4) Run the following command:
+#
+#        % If you are using x86 CPU (Intel, AMD)
+#        % DOCKER_ARCH=amd64 docker-compose up
+#
+#        % If you are using arm CPU (Apple M1/M2)
+#        % DOCKER_ARCH=arm64 docker-compose up
+#
+#        % If you want to avoid typing "DOCKER_ARCH=" every time,
+#        % "export DOCKER_ARCH=<your architecture>" >> ~/.bashrc && source ~/.bashrc
+#
+#    5) Look at output and use the 127.0.0.1 URL (unless you changed the port below)
+#
+
+version: '3'
+
+services:
+  labs:
+    hostname: labs
+    image: timeloopaccelergy/timeloop-accelergy-pytorch:latest-${DOCKER_ARCH}
+    build: .
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./workspace:/home/workspace/workspace
+      - ./setup/common/custom_pc_2021:/usr/local/share/accelergy/estimation_plug_ins/accelergy-library-plugin/library
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+#      - JUPYTER_SWITCHES=--LabApp.token=''

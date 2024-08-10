@@ -164,3 +164,4 @@ cython_debug/
 # Other
 *.swp
 workspace/outputs/generated/
+docker-compose.yaml
