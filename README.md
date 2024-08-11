@@ -14,8 +14,7 @@ options for the artifact evaluation.
 
 ### Software
 
-- Ubuntu 20.04 with `sudo` access
-- Python 3.8
+- [Docker](https://www.docker.com/products/docker-desktop/)
 - Web browser
 
 ## Installation
@@ -34,11 +33,50 @@ cd micro24-fusemax-artifact
 
 ### Option 1: Docker
 
-TODO
+#### Step 1: Prepare your `docker-compose.yaml`
+
+Copy the `docker-compose.yaml.template` file to a new `docker-compose.yaml`
+
+
+```bash
+cp docker-compose.yaml.template docker-compose.yaml
+```
+
+Edit the `docker-compose.yaml` with the appropriate `USER_UID` and `USER_GID`.
+
+#### Step 2: Pull the Docker Image
+
+We provide two options for obtaining the docker image. Please choose one of the
+options listed below.
+
+##### Option 1: Use `docker-compose`
+
+```bash
+docker-compose pull
+```
+
+If this does nothing, proceed to Option 2.
+
+##### Option 2: Use `docker pull`
+
+````bash
+docker pull timeloopaccelergy/timeloop-accelergy-pytorch:latest-amd64
+```
+
+#### Step 3: Start the container
+
+```bash
+docker-compose up
+```
+
 
 ### Option 2: Native Installation
 
 Expected installation time: 20 minutes
+
+Note: Additionally requires:
+- Ubuntu 20.04 with `sudo` access
+- Python 3.8
 
 #### Step 1: Create the virtual environment
 
@@ -121,9 +159,12 @@ Start Jupyter Lab:
 jupyter lab
 ```
 
-Open the Jupyter Lab in the browser and run `workspace/notebooks/figs.ipynb`.
-All figures will display in the notebook. Expected outputs can be found in
-Figures 6-12 of the paper or in `workspace/outputs/pregenerated/figs/`.
+Open the Jupyter Lab in the browser by navigating to the displayed 127.0.0.1
+URL.
+
+Run `workspace/notebooks/figs.ipynb`.  All figures will display in the
+notebook. Expected outputs can be found in Figures 6-12 of the paper or in
+`workspace/outputs/pregenerated/figs/`.
 
 The installation checks can also be run via `workspace/notebooks/check.ipynb`.
 
@@ -140,4 +181,3 @@ Note: Because paths are relative, this script *must* be run inside the `src` dir
 Generated figures can be found in `workspace/outputs/generated/figs/`.
 Expected outputs can be found in Figures 6-12 of the paper or in
 `workspace/outputs/pregenerated/figs/`.
-
