@@ -1,5 +1,5 @@
 #
-# Docker-compose file for running 6.812/6.825 labs
+# Docker-compose file for running the FuseMax artifact
 #
 # Notes:
 #    The READMEs are put in ./workspace
@@ -8,36 +8,29 @@
 
 # Run as follows:
 #
-#    1) Put this file in an otherwise empty directory
-#    2) Cd to the directory containing this file
-#    3) Change USER_UID and USER_GID to the desired owner of your files (echo $UID )
+#    1) Copy this template file to docker-compose.yaml
+#    2) In thae new file, change USER_UID and USER_GID to the owner of your files (echo $UID )
+#    3) [Optional] Change public port, .e.g, 8888:8888 -> 8890:8888
+#    4) [Optional] Uncomment JUPYTER_SWITCHES line to disable passwords
 #    4) Run the following command:
 #
-#        % If you are using x86 CPU (Intel, AMD)
-#        % DOCKER_ARCH=amd64 docker-compose up
+#        % docker-compose up
 #
-#        % If you are using arm CPU (Apple M1/M2)
-#        % DOCKER_ARCH=arm64 docker-compose up
-#
-#        % If you want to avoid typing "DOCKER_ARCH=" every time,
-#        % "export DOCKER_ARCH=<your architecture>" >> ~/.bashrc && source ~/.bashrc
-#
-#    5) Look at output and use the 127.0.0.1 URL (unless you changed the port below)
+#    5) Look at output and use the 127.0.0.1 URL (using port from 3 if you changed it)
 #
 
 version: '3'
 
 services:
   labs:
-    hostname: labs
-    image: timeloopaccelergy/timeloop-accelergy-pytorch:latest-${DOCKER_ARCH}
-    build: .
+    hostname: fusemax
+    image: timeloopaccelergy/timeloop-accelergy-pytorch:latest-amd64
     ports:
       - "8888:8888"
     volumes:
       - ./workspace:/home/workspace/workspace
-      - ./setup/common/custom_pc_2021:/usr/local/share/accelergy/estimation_plug_ins/accelergy-library-plugin/library
+      - ./setup/common/custom_pc_2021:/usr/local/share/accelergy/estimation_plug_ins/accelergy-library-plugin/library/custom_pc_2021
     environment:
       - USER_UID=1000
       - USER_GID=1000
-#      - JUPYTER_SWITCHES=--LabApp.token=''
+#      - JUPYTER_SWITCHES=--NotebookApp.token='' --NotebookApp.password=''

@@ -165,3 +165,19 @@ cython_debug/
 *.swp
 workspace/outputs/generated/
 docker-compose.yaml
+
+# Ignore emacs backup files
+*~
+\#*\#
+
+# Ignore shell files
+.config/
+.local/
+.bash_history
+.bashrc
+.profile
+
+
+# Ignore jupyter configuration
+.jupyter/
+
