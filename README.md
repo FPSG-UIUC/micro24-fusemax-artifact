@@ -19,9 +19,6 @@ notebook for the artifact evaluation.
 
 ## Installation
 
-These instructions use a Python virtual environment. The use of other Python
-environments (e.g., `conda`) may change the required paths.
-
 #### Step 0: Clone the repository
 
 Submodules must also be recursively cloned.
@@ -74,9 +71,12 @@ docker-compose up
 
 Expected installation time: 20 minutes
 
-Note: Additionally requires:
+Additionally requires:
 - Ubuntu 20.04 with `sudo` access
 - Python 3.8
+
+Note: These instructions use a Python virtual environment. The use of other
+Python environments (e.g., `conda`) may change the required paths.
 
 #### Step 1: Create the virtual environment
 
