@@ -148,16 +148,19 @@ Accelergy Area OK
 Accelergy Energy OK
 ```
 
-## Run Experiments
-
-Expected run time: 9 hours
-
-### [Recommended] Option 1: Use Jupyter Lab
+#### Step 4: Launch the Juptyer Lab
 
 Start Jupyter Lab:
 ```bash
 jupyter lab
 ```
+
+
+## Run Experiments
+
+Expected run time: 9 hours
+
+### [Recommended] Option 1: Use Jupyter Lab
 
 Open the Jupyter Lab in the browser by navigating to the displayed 127.0.0.1
 URL.
