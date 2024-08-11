@@ -2,8 +2,8 @@
 
 This repository provides the evaluation setups for the MICRO24 artifact
 evaluation for the paper *FuseMax: Leveraging Extended Einsums to Optimize
-Attention Accelerator Design*. We provide both a Jupyter lab and script-based
-options for the artifact evaluation.
+Attention Accelerator Design*. We provide a docker environment and Jupyter
+notebook for the artifact evaluation.
 
 ## System Requirements
 
@@ -31,7 +31,7 @@ git clone --recurse-submodules git@github.com:FPSG-UIUC/micro24-fusemax-artifact
 cd micro24-fusemax-artifact
 ```
 
-### Option 1: Docker
+### [Recommended] Option 1: Docker
 
 #### Step 1: Prepare your `docker-compose.yaml`
 
@@ -152,7 +152,7 @@ Accelergy Energy OK
 
 Expected run time: 9 hours
 
-### Option 1: Use Jupyter Lab
+### [Recommended] Option 1: Use Jupyter Lab
 
 Start Jupyter Lab:
 ```bash
