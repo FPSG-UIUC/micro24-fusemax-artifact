@@ -59,7 +59,7 @@ If this does nothing, proceed to Option 2.
 
 ##### Option 2: Use `docker pull`
 
-````bash
+```bash
 docker pull timeloopaccelergy/timeloop-accelergy-pytorch:latest-amd64
 ```
 
