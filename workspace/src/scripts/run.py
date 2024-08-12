@@ -3,6 +3,8 @@ import sys
 sys.path.insert(0, "..")
 
 from pathlib import Path
+from tqdm.notebook import tqdm
+from itertools import product
 
 from src.accel.flat import Flat
 from src.accel.flat_pe_proposal import FlatPEProposal
@@ -25,9 +27,16 @@ def attn(accel):
     seq_lens = ["1K", "4K", "16K", "64K", "256K", "1M"]
 
     started = False
-    for model in models:
-        for seq_len in seq_lens:
-            print("Evaluating", model, "on", seq_len, "tokens")
+    combinations = list(product(models, seq_lens))
+
+    with tqdm(total=len(combinations),
+              desc="Evaluating models",
+              unit="combination",
+              dynamic_ncols=True) as pbar:
+
+        for model, seq_len in combinations:
+            # Use tqdm.write instead of print to avoid interfering with the progress bar
+            tqdm.write(f"Evaluating {model} on {seq_len} tokens")
 
             timeloop_dir = "../outputs/generated/attn/" + accel + "/" + model + "/" + seq_len
             if accel == "unfused":
@@ -82,6 +91,10 @@ def attn(accel):
             with open(output_dir + "/attn-" + accel + ".csv", "a") as f:
                 f.write(",".join([str(val) for val in data]) + "\n")
 
+            # Update the progress bar
+            pbar.update(1)
+
+
 def end2end(platform):
     output_dir = "../outputs/generated"
     Path(output_dir).mkdir(parents=True, exist_ok=True)
@@ -92,9 +105,16 @@ def end2end(platform):
     models = ["BERT", "TrXL", "T5", "XLM"]
     seq_lens = ["1K", "4K", "16K", "64K", "256K", "1M"]
 
-    for model in models:
-        for seq_len in seq_lens:
-            print("Evaluating", model, "on", seq_len, "tokens")
+    combinations = list(product(models, seq_lens))
+
+    with tqdm(total=len(combinations),
+              desc="Evaluating models",
+              unit="combination",
+              dynamic_ncols=True) as pbar:
+
+        for model, seq_len in combinations:
+            # Use tqdm.write instead of print to avoid interfering with the progress bar
+            tqdm.write(f"Evaluating {model} on {seq_len} tokens")    
 
             timeloop_dir = "../outputs/generated/end2end/" + platform + "/" + model + "/" + seq_len
             matmul = MatMul(platform, model, seq_len)
@@ -106,6 +126,9 @@ def end2end(platform):
             with open(output_dir + "/end2end-" + platform + ".csv", "a") as f:
                 f.write(",".join([str(val) for val in data]) + "\n")
 
+            # Update the progress bar
+            pbar.update(1)
+
 def pareto():
     output_dir = "../outputs/generated"
     Path(output_dir).mkdir(parents=True, exist_ok=True)
@@ -115,12 +138,20 @@ def pareto():
 
     models = ["BERT", "TrXL", "T5", "XLM"]
     Es = [64, 64, 64, 128]
+    models_Es =  zip(models, Es)
     dims = [2**(i + 4) for i in range(6)]
 
-    for model, E in zip(models, Es):
-        multiplier = 1
-        for PE_dim in dims:
-            print("Evaluating", model, "on 256K tokens, with PE array", str(PE_dim) + "x" + str(PE_dim))
+    combinations = list(product(models_Es, dims))
+
+    with tqdm(total=len(combinations),
+              desc="Evaluating models",
+              unit="combination",
+              dynamic_ncols=True) as pbar:
+
+        for (model, E), PE_dim in combinations:
+            multiplier = 1
+            # Use tqdm.write instead of print to avoid interfering with the progress bar
+            tqdm.write(f"Evaluating {model} on 256K tokens, with PE array {str(PE_dim)}x{str(PE_dim)}")
             while True:
                 _, l3_sz = get_l3_sz(PE_dim, multiplier, E)
 
@@ -144,6 +175,9 @@ def pareto():
 
             if l3_sz > 32 * 2**20:
                 break
+
+            # Update the progress bar
+            pbar.update(1)
 
 def main():
     attn("unfused")
