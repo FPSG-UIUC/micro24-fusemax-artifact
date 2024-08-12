@@ -27,6 +27,8 @@ def attn(accel):
     started = False
     for model in models:
         for seq_len in seq_lens:
+            print("Evaluating", model, "on", seq_len, "tokens")
+
             timeloop_dir = "../outputs/generated/attn/" + accel + "/" + model + "/" + seq_len
             if accel == "unfused":
                 unfused = Unfused(model, seq_len)
@@ -92,6 +94,8 @@ def end2end(platform):
 
     for model in models:
         for seq_len in seq_lens:
+            print("Evaluating", model, "on", seq_len, "tokens")
+
             timeloop_dir = "../outputs/generated/end2end/" + platform + "/" + model + "/" + seq_len
             matmul = MatMul(platform, model, seq_len)
             eval_stats = matmul.eval(timeloop_dir, run_mapper=True)
@@ -116,6 +120,7 @@ def pareto():
     for model, E in zip(models, Es):
         multiplier = 1
         for PE_dim in dims:
+            print("Evaluating", model, "on 256K tokens, with PE array", str(PE_dim) + "x" + str(PE_dim))
             while True:
                 _, l3_sz = get_l3_sz(PE_dim, multiplier, E)
 

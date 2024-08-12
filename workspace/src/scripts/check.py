@@ -67,6 +67,12 @@ def accelergy():
     else:
         print("Accelergy Energy ERROR")
 
+def outputs(csv):
+    if filecmp.cmp("../outputs/generated/" + csv + ".csv", "../outputs/pregenerated/" + csv + ".csv"):
+        print("Matches pregenerated outputs")
+    else:
+        print("Does not match pregenerated outputs")
+
 def main():
     imports()
     timeloop()
