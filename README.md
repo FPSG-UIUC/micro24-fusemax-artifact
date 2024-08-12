@@ -62,6 +62,8 @@ docker pull timeloopaccelergy/timeloop-accelergy-pytorch:latest-amd64
 
 #### Step 3: Start the container
 
+Start the container, including the Jupyter lab.
+
 ```bash
 docker-compose up
 ```
@@ -162,8 +164,8 @@ Expected run time: 9 hours
 
 ### [Recommended] Option 1: Use Jupyter Lab
 
-Open the Jupyter Lab in the browser by navigating to the displayed 127.0.0.1
-URL.
+Start the Jupyter lab as described above. Open it in the browser by navigating
+to the displayed 127.0.0.1 URL.
 
 Run `workspace/notebooks/figs.ipynb`.  All figures will display in the
 notebook. Expected outputs can be found in Figures 6-12 of the paper or in
