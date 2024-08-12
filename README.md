@@ -41,7 +41,7 @@ cp docker-compose.yaml.template docker-compose.yaml
 
 Edit the `docker-compose.yaml` with the appropriate `USER_UID` and `USER_GID`.
 
-#### Step 2: Pull the Docker Image
+#### Step 2: Pull the Docker image
 
 We provide two options for obtaining the docker image. Please choose one of the
 options listed below.
@@ -52,12 +52,14 @@ options listed below.
 docker-compose pull
 ```
 
-If this does nothing, proceed to Option 2.
-
-##### Option 2: Use `docker pull`
+##### Option 2: Build the image from source
 
 ```bash
-docker pull timeloopaccelergy/timeloop-accelergy-pytorch:latest-amd64
+cd ./setup/common/accelergy-timeloop-infrastructure
+make build-amd64
+cd ../../docker/timeloop-accelergy-pytorch
+make build-amd64
+cd ../../..
 ```
 
 #### Step 3: Start the container
