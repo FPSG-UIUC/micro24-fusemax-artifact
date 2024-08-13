@@ -88,7 +88,7 @@ class Proposal(Cascade):
     def eval_per_einsum(self, output_dir, spec_callback=None, arch_prefix=""):
         results = {}
         for einsum, cost_dict in self.compute_cost.items():
-            args = (einsum, output_dir + "/" + einsum.lower())
+            args = (einsum, output_dir / einsum.lower())
             self.build_input(*args)
 
             if einsum in self.einsums_2d:

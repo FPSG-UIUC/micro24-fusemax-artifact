@@ -67,8 +67,11 @@ def accelergy():
     else:
         print("Accelergy Energy ERROR")
 
-def outputs(csv):
-    if filecmp.cmp("../outputs/generated/" + csv + ".csv", "../outputs/pregenerated/" + csv + ".csv"):
+def outputs(csv, results_dir="../outputs/generated/default"):
+    results_dir = Path(results_dir)
+
+    if filecmp.cmp(results_dir / f"{csv}.csv",
+                   f"../outputs/pregenerated/{csv}.csv"):
         print("Matches pregenerated outputs")
     else:
         print("Does not match pregenerated outputs")

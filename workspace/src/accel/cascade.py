@@ -31,9 +31,9 @@ class Cascade:
     def add_data_locs_mapper(self, output_dir):
         yaml = YAML(typ="safe")
         for einsum in self.compute_cost:
-            einsum_dir = output_dir + "/" + einsum.lower()
+            einsum_dir = output_dir / einsum.lower()
 
-            with open(einsum_dir + "/timeloop-mapper.map.yaml", "r") as f:
+            with open(einsum_dir / "timeloop-mapper.map.yaml", "r") as f:
                 mappings = yaml.load(f)["mapping"]
 
             self.add_data_locs(einsum, mappings)
@@ -42,7 +42,7 @@ class Cascade:
         stats = {}
         for einsum in self.compute_cost.keys():
             estats = {}
-            einsum_dir = output_dir + "/" + einsum.lower()
+            einsum_dir = output_dir / einsum.lower()
 
             for mem in self.data_locs[einsum]:
                 estats[mem] = self.build_accelergy_buf_counts(einsum, einsum_dir, mem, source=source)
@@ -124,7 +124,7 @@ class Cascade:
         for fu_name, fu in stats["func_2d"].items():
             local.append(self.__count(fu_name, 1, fu))
 
-        with open(output_dir + "/action_counts_2d.yaml", "w") as f:
+        with open(output_dir / "action_counts_2d.yaml", "w") as f:
             yaml.dump(counts_2d, f)
 
         counts_1d = {"action_counts": {"version": "0.4", "local": []}}
@@ -134,11 +134,11 @@ class Cascade:
         for fu_name, fu in stats["func_1d"].items():
             local.append(self.__count(fu_name, 1, fu))
 
-        with open(output_dir + "/action_counts_1d.yaml", "w") as f:
+        with open(output_dir / "action_counts_1d.yaml", "w") as f:
             yaml.dump(counts_1d, f)
 
     def build_accelergy_buf_counts(self, einsum, output_dir, level, source="model"):
-        stats = Stats(output_dir + "/timeloop-" + source + ".stats.txt")
+        stats = Stats(output_dir / f"timeloop-{source}.stats.txt")
 
         # leak and update are unused
         counts = {"read": 0, "write": 0, "leak": 0, "update": 0}
@@ -170,7 +170,7 @@ class Cascade:
         return counts
 
     def build_accelergy_comp_counts(self, output_dir, source="model", cost=1):
-        stats = Stats(output_dir + "/timeloop-" + source + ".stats.txt")
+        stats = Stats(output_dir / f"timeloop-{source}.stats.txt")
 
         compute = stats.read_data(["=== mac ===", "Computes (total)"])
 
@@ -219,7 +219,7 @@ class Cascade:
         # Write the input to the output directory
         Path(output_dir).mkdir(parents=True, exist_ok=True)
 
-        with open(output_dir + "/problem+mapping.yaml", "w") as f:
+        with open(output_dir / "problem+mapping.yaml", "w") as f:
             yaml.dump(inputs, f)
 
     def check_dram(self, einsum, tensor):
@@ -234,7 +234,7 @@ class Cascade:
         area = 0
         array_2d = 0
         for array in ["2d", "1d"]:
-            with open(output_dir + "/" + array + "/ART.yaml", "r") as f:
+            with open(output_dir / array / "ART.yaml", "r") as f:
                 art = yaml.load(f)["ART"]["tables"]
 
             for table in art:
@@ -253,7 +253,7 @@ class Cascade:
 
     # Note: Assumes that build_input and run_model have already been run
     def collect_mem_traffic(self, einsum, output_dir, llb, prop_spilled=0, opt_spill=True, source="model"):
-        stats = Stats(output_dir + "/timeloop-" + source + ".stats.txt")
+        stats = Stats(output_dir / f"timeloop-{source}.stats.txt")
 
         buf_rd = 0
         buf_wr = 0
@@ -313,7 +313,7 @@ class Cascade:
 
     # Note: Assumes that build_input and run_model have already been run
     def collect_latency(self, einsum, output_dir, mem_traffic, source="model", mem_bw=400 * 2**30):
-        stats = Stats(output_dir + "/timeloop-" + source + ".stats.txt")
+        stats = Stats(output_dir / f"timeloop-{source}.stats.txt")
 
         # Bandwidth is 400 GB/s for the cloud configuration
         mem_latency = mem_traffic / mem_bw
@@ -349,10 +349,10 @@ class Cascade:
         yaml = YAML(typ="safe")
 
         energy = 0
-        with open(output_dir + "/2d/energy_estimation.yaml", "r") as f:
+        with open(output_dir / "2d" / "energy_estimation.yaml", "r") as f:
             energy += yaml.load(f)["energy_estimation"]["Total"]
 
-        with open(output_dir + "/1d/energy_estimation.yaml", "r") as f:
+        with open(output_dir / "1d" / "energy_estimation.yaml", "r") as f:
             energy += yaml.load(f)["energy_estimation"]["Total"]
 
         return energy
@@ -363,12 +363,12 @@ class Cascade:
 
         names = []
         energies = []
-        with open(output_dir + "/2d/energy_estimation.yaml", "r") as f:
+        with open(output_dir / "2d" / "energy_estimation.yaml", "r") as f:
             n, e = self.__get_comp_energy(yaml.load(f)["energy_estimation"]["components"])
             names += [name + "_2d" for name in n]
             energies += e
 
-        with open(output_dir + "/1d/energy_estimation.yaml", "r") as f:
+        with open(output_dir / "1d" / "energy_estimation.yaml", "r") as f:
             n, e = self.__get_comp_energy(yaml.load(f)["energy_estimation"]["components"])
             names += [name + "_1d" for name in n]
             energies += e
@@ -402,8 +402,8 @@ class Cascade:
 
         tl.call_accelergy_verbose(
             spec_2d,
-            output_dir=output_dir + "/2d",
-            log_to = output_dir + "/2d/accelergy_verbose.log",
+            output_dir=str(output_dir / "2d"),
+            log_to=str(output_dir / "2d" / "accelergy_verbose.log"),
         )
 
         spec_1d = tl.Specification.from_yaml_files(
@@ -421,37 +421,36 @@ class Cascade:
 
         tl.call_accelergy_verbose(
             spec_1d,
-            output_dir=output_dir + "/1d",
-            log_to = output_dir + "/1d/accelergy_verbose.log",
+            output_dir=str(output_dir / "1d"),
+            log_to=str(output_dir / "1d" / "accelergy_verbose.log"),
         )
 
     def run_accelergy_energy(self, output_dir, arch, spec_callback=None):
         self.run_accelergy_area(output_dir, arch, spec_callback=spec_callback)
 
-        with open(output_dir + "/2d/accelergy_verbose.yaml", "w") as f:
+        with open(output_dir / "2d" / "accelergy_verbose.yaml", "w") as f:
             subprocess.run([
                 "accelergy",
-                output_dir + "/action_counts_2d.yaml",
-                output_dir + "/2d/parsed-processed-input.yaml",
+                output_dir / "action_counts_2d.yaml",
+                output_dir / "2d" / "parsed-processed-input.yaml",
                 "-o",
-                output_dir + "/2d"],
+                output_dir / "2d"],
                 stderr=f)
 
-        with open(output_dir + "/1d/accelergy_verbose.yaml", "w") as f:
+        with open(output_dir / "1d" / "accelergy_verbose.yaml", "w") as f:
             subprocess.run([
                 "accelergy",
-                output_dir + "/action_counts_1d.yaml",
-                output_dir + "/1d/parsed-processed-input.yaml",
+                output_dir / "action_counts_1d.yaml",
+                output_dir / "1d" / "parsed-processed-input.yaml",
                 "-o",
-                output_dir + "/1d"],
+                output_dir / "1d"],
             stderr=f)
 
     # Note: Assumes that build_input has already been run
     def run_mapper(self, einsum, output_dir, arch_yaml, spec_callback=None):
         spec = tl.Specification.from_yaml_files(
-            output_dir +
-            "/problem+mapping.yaml",
-            arch_yaml,
+            str(output_dir / "problem+mapping.yaml"),
+            str(arch_yaml),
             "../inputs/yamls/baselines/mapper.yaml",
             "../inputs/timeloop-accelergy-exercises/workspace/example_designs/example_designs/_components/*",
         )
@@ -459,21 +458,20 @@ class Cascade:
         if spec_callback is not None:
             spec_callback(spec)
 
-        tl.call_mapper(spec, output_dir)
+            tl.call_mapper(spec, str(output_dir))
 
     # Note: Assumes that build_input has already been run
     def run_model(self, einsum, output_dir, arch_yaml, spec_callback=None):
         spec = tl.Specification.from_yaml_files(
-            output_dir +
-            "/problem+mapping.yaml",
-            arch_yaml,
+            str(output_dir / "problem+mapping.yaml"),
+            str(arch_yaml),
             "../inputs/timeloop-accelergy-exercises/workspace/example_designs/example_designs/_components/*",
         )
 
         if spec_callback is not None:
             spec_callback(spec, einsum)
 
-        tl.call_model(spec, output_dir)
+        tl.call_model(spec, str(output_dir))
 
     def update_factor(self, factors, rank, shape):
         i = factors.index(rank + "=1")

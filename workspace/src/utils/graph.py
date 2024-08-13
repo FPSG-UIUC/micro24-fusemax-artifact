@@ -11,11 +11,10 @@ import seaborn as sns
 
 from src.utils.csv_utils import CSVUtils
 
-def load_data(col, kernel="attn", raw_cb=None, data_cb=None, skip=set(), pregenerated=False):
-    if pregenerated:
-        data_dir = "../outputs/pregenerated/"
-    else:
-        data_dir = "../outputs/generated/"
+def load_data(col, kernel="attn", raw_cb=None, data_cb=None, skip=set(), results_dir="../outputs/generated/default"):
+
+    data_dir = Path(results_dir)
+
     accels = {"unfused": "Unfused", "flat": "FLAT", "cascade": "+Cascade", "arch": "+Architecture", "binding": "+Binding"}
     archs = {"unfused": "flat", "flat": "flat", "cascade": "flat", "arch": "proposal", "binding": "proposal"}
 
@@ -26,13 +25,13 @@ def load_data(col, kernel="attn", raw_cb=None, data_cb=None, skip=set(), pregene
         if accel in skip:
             continue
 
-        reader = CSVUtils(data_dir + "attn-" + accel + ".csv")
+        reader = CSVUtils(data_dir / f"attn-{accel}.csv")
 
         attn_csv = reader.get_all()
         i = attn_csv[0].index(col)
 
         if kernel == "end2end":
-            reader = CSVUtils(data_dir + "/end2end-" + archs[accel] + ".csv")
+            reader = CSVUtils(data_dir / f"end2end-{archs[accel]}.csv")
             end2end_csv = reader.get_all()
             k = end2end_csv[0].index(col)
 
@@ -83,16 +82,15 @@ def load_data(col, kernel="attn", raw_cb=None, data_cb=None, skip=set(), pregene
 
     return pd.DataFrame.from_dict(data)
 
-def load_breakdown(pregenerated=False):
+def load_breakdown(results_dir):
+    results_dir = Path(results_dir)
+
     accels = {"flat": "FL", "cascade": "+C", "arch": "+A", "binding": "+B"}
     einsums = {"flat": ["QK", "AV"], "cascade": ["QK", "SLNV"], "arch": ["QK", "LM", "SLN", "SLD", "SLNV"], "binding": ["QK", "LM", "SLN", "SLD", "SLNV"]}
 
     data = {"seq_len": [], "Accelerator": [], "QK": [], "LM": [], "SLN": [], "SLD": [], "SLNV/AV": []}
     for accel in accels:
-        if pregenerated:
-            reader = CSVUtils("../outputs/pregenerated/attn-" + accel + ".csv")
-        else:
-            reader = CSVUtils("../outputs/generated/attn-" + accel + ".csv")
+        reader = CSVUtils(results_dir / f"attn-{accel}.csv")
 
         attn_csv = reader.get_all()
 
@@ -115,9 +113,9 @@ def load_breakdown(pregenerated=False):
     return pd.DataFrame.from_dict(data)
 
 
-def draw_bar_graph(data, ylabel, fn, ymax=None):
-    output_dir = "../outputs/generated/figs"
-    Path(output_dir).mkdir(parents=True, exist_ok=True)
+def draw_bar_graph(data, ylabel, fn, ymax=None, results_dir="../outputs/generated/default"):
+    figs_dir = Path(results_dir) / "figs"
+    figs_dir.mkdir(parents=True, exist_ok=True)
 
     # Increase the font size
     fontsize = 20
@@ -128,7 +126,7 @@ def draw_bar_graph(data, ylabel, fn, ymax=None):
     if "FuseMax" in accels:
         accels.remove("FuseMax")
         accels.append("FuseMax")
-
+        
     # Graph
     sns.set_style('whitegrid')
     g = sns.catplot(x="seq_len", hue="Accelerator", col="model", y="data",
@@ -169,13 +167,13 @@ def draw_bar_graph(data, ylabel, fn, ymax=None):
 
     plt.subplots_adjust(wspace=0, bottom=0.18, left=0.06)
 
-    plt.savefig(output_dir + "/" + fn + ".pdf", format="pdf", bbox_inches="tight")
+    plt.savefig(figs_dir / f"{fn}.pdf", format="pdf", bbox_inches="tight")
 
-def draw_breakdown(pregenerated=False):
-    output_dir = "../outputs/generated/figs"
-    Path(output_dir).mkdir(parents=True, exist_ok=True)
+def draw_breakdown(results_dir):
+    figs_dir = Path(results_dir) / "figs"
+    figs_dir.mkdir(parents=True, exist_ok=True)
 
-    df = load_breakdown(pregenerated=pregenerated)
+    df = load_breakdown(results_dir)
 
     # Increase the font size
     fontsize = 20
@@ -231,16 +229,15 @@ def draw_breakdown(pregenerated=False):
 
     plt.subplots_adjust(wspace=0, bottom=0.18, left=0.06)
 
-    plt.savefig(output_dir + "/fig7.pdf", format="pdf", bbox_inches="tight")
+    plt.savefig(figs_dir / "fig7.pdf", format="pdf", bbox_inches="tight")
 
-def draw_pareto(pregenerated=False):
-    output_dir = "../outputs/generated/figs"
-    Path(output_dir).mkdir(parents=True, exist_ok=True)
+def draw_pareto(results_dir="../outputs/generated/default"):
+    results_dir = Path(results_dir)
 
-    if pregenerated:
-        df = pd.read_csv("../outputs/pregenerated/pareto.csv")
-    else:
-        df = pd.read_csv("../outputs/generated/pareto.csv")
+    figs_dir = Path(results_dir) / "figs"
+    figs_dir.mkdir(parents=True, exist_ok=True)
+
+    df = pd.read_csv(results_dir / "pareto.csv")
 
     df = df.rename({"model": "Model"}, axis=1)
 
@@ -264,4 +261,4 @@ def draw_pareto(pregenerated=False):
     ax.set_xlabel("Area (cm${}^2$)")
     ax.set_ylabel("Attention Latency (s)")
 
-    plt.savefig(output_dir + "/fig12.pdf", format="pdf", bbox_inches="tight")
+    plt.savefig(figs_dir / "fig12.pdf", format="pdf", bbox_inches="tight")

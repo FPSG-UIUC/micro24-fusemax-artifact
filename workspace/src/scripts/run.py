@@ -16,11 +16,15 @@ import src.utils.graph as graph
 from src.utils.pareto import *
 
 
-def attn(accel):
-    output_dir = "../outputs/generated"
-    Path(output_dir).mkdir(parents=True, exist_ok=True)
 
-    with open(output_dir + "/attn-" + accel + ".csv", "w") as f:
+def attn(accel, results_dir="../outputs/generated/default"):
+    output_dir = Path( results_dir)
+
+    if output_dir.name == "pregenerated":
+        print("Cannot create new results for the 'pregenerated' experiment")
+        return
+
+    with open(output_dir / f"attn-{accel}.csv", "w") as f:
         f.write("model,seq_len,traffic,latency,energy,util_2d,util_1d,")
 
     models = ["BERT", "TrXL", "T5", "XLM"]
@@ -38,7 +42,7 @@ def attn(accel):
             # Use tqdm.write instead of print to avoid interfering with the progress bar
             tqdm.write(f"Evaluating {model} on {seq_len} tokens")
 
-            timeloop_dir = "../outputs/generated/attn/" + accel + "/" + model + "/" + seq_len
+            timeloop_dir = output_dir / "attn" / accel / model / seq_len
             if accel == "unfused":
                 unfused = Unfused(model, seq_len)
                 eval_stats = unfused.eval(timeloop_dir, run_mapper=True)
@@ -83,23 +87,26 @@ def attn(accel):
             if not started:
                 started = True
 
-                with open(output_dir + "/attn-" + accel + ".csv", "a") as f:
+                with open(output_dir / f"attn-{accel}.csv", "a") as f:
                     f.write(",".join(names) + "\n")
 
             data = [model, seq_len, *eval_stats, energy, *util_stats, *utils_2d]
 
-            with open(output_dir + "/attn-" + accel + ".csv", "a") as f:
+            with open(output_dir / f"attn-{accel}.csv", "a") as f:
                 f.write(",".join([str(val) for val in data]) + "\n")
 
             # Update the progress bar
             pbar.update(1)
 
 
-def end2end(platform):
-    output_dir = "../outputs/generated"
-    Path(output_dir).mkdir(parents=True, exist_ok=True)
+def end2end(platform, results_dir="../outputs/generated/default"):
+    output_dir = Path(results_dir)
 
-    with open(output_dir + "/end2end-" + platform + ".csv", "w") as f:
+    if output_dir.name == "pregenerated":
+        print("Cannot create new results for the 'pregenerated' experiment")
+        return
+
+    with open(output_dir / f"end2end-{platform}.csv", "w") as f:
         f.write("model,seq_len,traffic,latency,energy\n")
 
     models = ["BERT", "TrXL", "T5", "XLM"]
@@ -116,24 +123,27 @@ def end2end(platform):
             # Use tqdm.write instead of print to avoid interfering with the progress bar
             tqdm.write(f"Evaluating {model} on {seq_len} tokens")    
 
-            timeloop_dir = "../outputs/generated/end2end/" + platform + "/" + model + "/" + seq_len
+            timeloop_dir = output_dir / "end2end" / platform / model / seq_len
             matmul = MatMul(platform, model, seq_len)
             eval_stats = matmul.eval(timeloop_dir, run_mapper=True)
             energy = matmul.eval_energy(timeloop_dir)
 
             data = [model, seq_len, *eval_stats, energy]
 
-            with open(output_dir + "/end2end-" + platform + ".csv", "a") as f:
+            with open(output_dir / f"end2end-{platform}.csv", "a") as f:
                 f.write(",".join([str(val) for val in data]) + "\n")
 
             # Update the progress bar
             pbar.update(1)
 
-def pareto():
-    output_dir = "../outputs/generated"
-    Path(output_dir).mkdir(parents=True, exist_ok=True)
+def pareto(results_dir="../outputs/generated/default"):
+    output_dir = Path(results_dir)
 
-    with open(output_dir + "/pareto.csv", "w") as f:
+    if output_dir.name == "pregenerated":
+        print("Cannot create new results for the 'pregenerated' experiment")
+        return
+
+    with open(output_dir / "pareto.csv", "w") as f:
         f.write("accel,model,PE_dim,traffic,mem_lat,comp_2d_lat,comp_1d_lat,latency,array_2d_area,area\n")
 
     models = ["BERT", "TrXL", "T5", "XLM"]
@@ -151,14 +161,14 @@ def pareto():
         for (model, E), PE_dim in combinations:
             multiplier = 1
             # Use tqdm.write instead of print to avoid interfering with the progress bar
-            tqdm.write(f"Evaluating {model} on 256K tokens, with PE array {str(PE_dim)}x{str(PE_dim)}")
+            tqdm.write(f"Evaluating {model} on 256K tokens, with PE array {PE_dim}x{PE_dim}")
             while True:
                 _, l3_sz = get_l3_sz(PE_dim, multiplier, E)
 
                 proposal = Proposal(model, "256K", PE_dim=PE_dim, l3_sz=l3_sz)
                 tl_cb = lambda spec, einsum: timeloop_arch_cb(spec, einsum, PE_dim, multiplier, E)
                 ac_cb = lambda spec, array: accelergy_arch_cb(spec, array, PE_dim, multiplier, E)
-                timeloop_dir = output_dir + "/pareto/" + model + "/" + str(PE_dim) + "/" + str(l3_sz // 2**10) + "K"
+                timeloop_dir = output_dir / "pareto" / model / f"{PE_dim}" / f"{l3_sz // 2**10}K"
 
                 result = proposal.eval_components(timeloop_dir, spec_callback=tl_cb)
                 _, latency = proposal.eval(timeloop_dir, spec_callback=tl_cb)
@@ -170,7 +180,7 @@ def pareto():
                     break
 
             data = ["proposal", model, PE_dim, *result, latency, array_2d, area]
-            with open(output_dir + "/pareto.csv", "a") as f:
+            with open(output_dir / "pareto.csv", "a") as f:
                 f.write(",".join([str(val) for val in data]) + "\n")
 
             if l3_sz > 32 * 2**20:

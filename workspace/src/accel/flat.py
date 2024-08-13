@@ -65,7 +65,7 @@ class Flat(Cascade):
         stats["DRAM"]["read"] = self.computed["qk_av_rd"] / 8
         stats["DRAM"]["write"] = self.computed["qk_av_wr"] / 8
 
-        ss_stats = self.computed["softmax_accel"].build_accelergy_stats(output_dir + "/ss")
+        ss_stats = self.computed["softmax_accel"].build_accelergy_stats(output_dir / "ss")
 
         self.combine_stats(stats, ss_stats)
         return stats
@@ -83,12 +83,12 @@ class Flat(Cascade):
             self.eval(output_dir, validation=validation)
 
         if "util_qk" not in self.computed:
-            qk_stats = Stats(output_dir + "/qk/timeloop-model.stats.txt")
+            qk_stats = Stats(output_dir / "qk" / "timeloop-model.stats.txt")
             util_qk = qk_stats.read_data(["=== mac ===", "Utilized instances"])
 
             instances = int(qk_stats.read_data(["=== mac ===", "Instances"]).split(" ")[0])
 
-            av_stats = Stats(output_dir + "/av/timeloop-model.stats.txt")
+            av_stats = Stats(output_dir / "av" / "timeloop-model.stats.txt")
             util_av = av_stats.read_data(["=== mac ===", "Utilized instances"])
 
             self.computed["util_qk"] = self.computed["qk_comp_lat"] * util_qk / (self.computed["latency"] * instances)
@@ -99,7 +99,7 @@ class Flat(Cascade):
     def eval_components(self, output_dir, validation=False):
         prop_spilled = self.__get_val("proportion_spilled")
 
-        args = ("QK", output_dir + "/qk")
+        args = ("QK", output_dir / "qk")
         self.build_input(*args)
         self.run_model(*args, "../inputs/yamls/baselines/arch-2d.yaml", self.__timeloop_callback)
 
@@ -109,7 +109,7 @@ class Flat(Cascade):
 
         qk_mem_lat, qk_comp_lat = self.collect_latency(*args, qk_traffic, mem_bw=self.mem_bw)
 
-        args = ("AV", output_dir + "/av")
+        args = ("AV", output_dir / "av")
         self.build_input(*args)
         self.run_model(*args, "../inputs/yamls/baselines/arch-2d.yaml", self.__timeloop_callback)
 
@@ -148,7 +148,7 @@ class Flat(Cascade):
         ss = StableSoftmax(self.model, self.seq_len, is_QK_A_onchip, PE_dim=self.PE_dim, avail_buf=buf_sz, mem_bw=self.mem_bw, prop_spilled=ss_spilled)
         self.computed["softmax_accel"] = ss
         ss_traffic, ss_mem_lat, ss_comp_lat = ss.eval_components(
-            output_dir + "/ss")
+            output_dir / "ss")
 
         traffic = qk_av_traffic + ss_traffic
         mem_lat = qk_mem_lat + ss_mem_lat + av_mem_lat
@@ -191,13 +191,13 @@ class Flat(Cascade):
         if self.locs["QK"] == "onchip":
             return None
 
-        stats = Stats(output_dir + "/qk/timeloop-model.stats.txt")
+        stats = Stats(output_dir / "qk" / "timeloop-model.stats.txt")
         occupied = 0
         for tensor in self.tensors["QK"]:
             if self.locs[tensor] == "onchip":
                 occupied +=  stats.read_data(["=== L3 ===", tensor + ":", "Utilized capacity"])
 
-        stats = Stats(output_dir + "/av/timeloop-model.stats.txt")
+        stats = Stats(output_dir / "av" / "timeloop-model.stats.txt")
         for tensor in self.tensors["AV"]:
             if self.locs[tensor] == "onchip":
                 occupied +=  stats.read_data(["=== L3 ===", tensor + ":", "Utilized capacity"])
