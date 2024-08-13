@@ -185,6 +185,6 @@ cd ../..
 
 Note: Because paths are relative, this script *must* be run inside the `src` directory.
 
-Generated figures can be found in `workspace/outputs/generated/figs/`.
+Generated figures can be found in `workspace/outputs/generated/default/figs/`.
 Expected outputs can be found in Figures 6-12 of the paper or in
 `workspace/outputs/pregenerated/figs/`.
