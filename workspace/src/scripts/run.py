@@ -2,9 +2,11 @@ import os
 import sys
 sys.path.insert(0, "..")
 
+from datetime import datetime
 from pathlib import Path
-from tqdm.notebook import tqdm
 from itertools import product
+
+from tqdm.notebook import tqdm
 
 from src.accel.flat import Flat
 from src.accel.flat_pe_proposal import FlatPEProposal
@@ -134,7 +136,7 @@ def end2end(platform, experiment_dir="../outputs/generated/default"):
 
         for model, seq_len in combinations:
             # Use tqdm.write instead of print to avoid interfering with the progress bar
-            tqdm.write(f"Evaluating {model} on {seq_len} tokens")    
+            tqdm.write(f"Evaluating {model} on {seq_len} tokens")
 
             timeloop_dir = runs_dir / "end2end" / platform / model / seq_len
             matmul = MatMul(platform, model, seq_len)
