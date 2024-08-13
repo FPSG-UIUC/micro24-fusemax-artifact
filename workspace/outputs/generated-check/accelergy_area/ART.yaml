@@ -1,0 +1,15 @@
+ART:
+    version: '0.4'
+    tables:
+      - name: system_top_level.inter_PE_spatial[1..1]
+        area: 1.0
+      - name: system_top_level.reg_file[1..256]
+        area: 16849.2142
+      - name: system_top_level.max[1..256]
+        area: 49.28944
+      - name: system_top_level.add[1..256]
+        area: 1030.0
+      - name: system_top_level.mac[1..256]
+        area: 1545.0
+      - name: system_top_level.divide[1..256]
+        area: 23740.9375

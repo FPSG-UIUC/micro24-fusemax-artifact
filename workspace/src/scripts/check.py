@@ -19,10 +19,10 @@ def timeloop():
     "../inputs/yamls/proposal/mappings/qk.yaml",
     "../inputs/timeloop-accelergy-exercises/workspace/example_designs/example_designs/_components/*")
 
-    tl.call_model(spec, "../outputs/generated/check/timeloop")
+    tl.call_model(spec, "../outputs/generated-check/timeloop")
 
-    if filecmp.cmp("../outputs/pregenerated/check/timeloop/timeloop-model.stats.txt",
-            "../outputs/generated/check/timeloop/timeloop-model.stats.txt"):
+    if filecmp.cmp("../outputs/pregenerated-check/timeloop/timeloop-model.stats.txt",
+            "../outputs/generated-check/timeloop/timeloop-model.stats.txt"):
         print("Timeloop OK")
     else:
         print("Timeloop ERROR")
@@ -40,29 +40,29 @@ def accelergy():
 
     tl.call_accelergy_verbose(
         spec,
-        output_dir="../outputs/generated/check/accelergy_area",
-        log_to = "../outputs/generated/check/accelergy_area/accelergy_verbose.log",
+        output_dir="../outputs/generated-check/accelergy_area",
+        log_to = "../outputs/generated-check/accelergy_area/accelergy_verbose.log",
     )
 
-    if filecmp.cmp("../outputs/pregenerated/check/accelergy_area/ART.yaml",
-            "../outputs/generated/check/accelergy_area/ART.yaml"):
+    if filecmp.cmp("../outputs/pregenerated-check/accelergy_area/ART.yaml",
+            "../outputs/generated-check/accelergy_area/ART.yaml"):
         print("Accelergy Area OK")
     else:
         print("Accelergy Area ERROR")
 
-    output_dir = "../outputs/generated/check/accelergy_energy"
+    output_dir = "../outputs/generated-check/accelergy_energy"
     Path(output_dir).mkdir(parents=True, exist_ok=True)
 
-    with open("../outputs/generated/check/accelergy_energy/accelergy_verbose.log", "w") as f:
+    with open("../outputs/generated-check/accelergy_energy/accelergy_verbose.log", "w") as f:
         subprocess.run(["accelergy",
                         "../inputs/yamls/area_energy/architecture/pseudo/action_counts.yaml",
-                        "../outputs/generated/check/accelergy_area/parsed-processed-input.yaml",
+                        "../outputs/generated-check/accelergy_area/parsed-processed-input.yaml",
                         "-o",
-                        "../outputs/generated/check/accelergy_energy"],
+                        "../outputs/generated-check/accelergy_energy"],
                         stderr=f)
 
-    if filecmp.cmp("../outputs/pregenerated/check/accelergy_energy/energy_estimation.yaml",
-            "../outputs/generated/check/accelergy_energy/energy_estimation.yaml"):
+    if filecmp.cmp("../outputs/pregenerated-check/accelergy_energy/energy_estimation.yaml",
+            "../outputs/generated-check/accelergy_energy/energy_estimation.yaml"):
         print("Accelergy Energy OK")
     else:
         print("Accelergy Energy ERROR")

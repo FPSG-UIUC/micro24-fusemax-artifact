@@ -1,0 +1,66 @@
+ERT_summary:
+    version: '0.4'
+    table_summary:
+      - name: system_top_level.reg_file[1..256]
+        actions:
+          - name: write
+            energy: 1.906455
+          - name: read
+            energy: 2.194455
+          - name: leak
+            energy: 0.001713
+          - name: update
+            energy: 1.906455
+        primitive_estimation(s):
+          - name: storage.storage[1..32]
+            estimator: Library
+          - name: storage.comparator[1..64]
+            estimator: Library
+          - name: address_generators[0]
+            estimator: Neurosim Plug-In
+          - name: address_generators[1]
+            estimator: Neurosim Plug-In
+          - name: storage.storage[1..2048]
+            estimator: Library
+          - name: address_generators[0..1]
+            estimator: Neurosim Plug-In
+      - name: system_top_level.max[1..256]
+        actions:
+          - name: compute
+            energy: 0.028036
+          - name: leak
+            energy: 1.3e-05
+        primitive_estimation(s):
+          - name: comparator
+            estimator: Library
+          - name: mux
+            estimator: Neurosim Plug-In
+      - name: system_top_level.add[1..256]
+        actions:
+          - name: compute
+            energy: 8.3395
+          - name: leak
+            energy: 0.084574
+        primitive_estimation(s):
+          - name: fpadder
+            estimator: Aladdin_table
+      - name: system_top_level.mac[1..256]
+        actions:
+          - name: compute
+            energy: 17.1645
+          - name: leak
+            energy: 0.180192
+        primitive_estimation(s):
+          - name: fpadder
+            estimator: Aladdin_table
+          - name: fpmultiplier
+            estimator: Aladdin_table
+      - name: system_top_level.divide[1..256]
+        actions:
+          - name: compute
+            energy: 36.251153
+          - name: leak
+            energy: 0.0
+        primitive_estimation(s):
+          - name: divide_32b
+            estimator: Library
