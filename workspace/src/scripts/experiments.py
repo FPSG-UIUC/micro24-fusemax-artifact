@@ -16,7 +16,7 @@ class Experiments:
         self.dropdown = widgets.Dropdown(
             options=['pregenerated'] + experiment_dirs,
             value='pregenerated',
-            description='Select:',
+            description='Select experiment:',
         )
 
         # Observe changes in the dropdown selection
@@ -52,13 +52,18 @@ class Experiments:
 
     def add_date(self, b):
         """Add the current date and time to the dropdown and set it as selected."""
+
         current_datetime = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+
         self.dropdown.options = list(self.dropdown.options) + [current_datetime]
         self.dropdown.value = current_datetime  # Set the new date-time as the selected value
         self.selected_value = current_datetime  # Update the global variable
 
+        self.get_output_dir()
+
     def get_output_dir(self):
         """Create and return the appropriate output directory based on the selected value."""
+
         base_dir = Path("../outputs/")
         if self.selected_value == "pregenerated":
             output_dir = base_dir / "pregenerated"
@@ -70,6 +75,7 @@ class Experiments:
 
     def confirm_delete_experiment(self, b):
         """Prompt the user to confirm deletion of the selected experiment."""
+
         if self.selected_value == "pregenerated":
             with self.output:
                 print("Cannot delete the 'pregenerated' experiment.")
@@ -88,7 +94,9 @@ class Experiments:
 
     def delete_experiment(self, b):
         """Delete the selected experiment directory after confirmation."""
+
         dir_to_delete = Path("../outputs/generated/") / self.selected_value
+
         if dir_to_delete.exists() and dir_to_delete.is_dir():
             shutil.rmtree(dir_to_delete)
             with self.output:

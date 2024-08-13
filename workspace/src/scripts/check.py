@@ -67,11 +67,12 @@ def accelergy():
     else:
         print("Accelergy Energy ERROR")
 
-def outputs(csv, results_dir="../outputs/generated/default"):
-    results_dir = Path(results_dir)
+def outputs(csv, experiment_dir="../outputs/generated/default"):
+    experiment_dir = Path(experiment_dir)
+    results_dir = experiment_dir / "results"
 
     if filecmp.cmp(results_dir / f"{csv}.csv",
-                   f"../outputs/pregenerated/{csv}.csv"):
+                   f"../outputs/pregenerated/results/{csv}.csv"):
         print("Matches pregenerated outputs")
     else:
         print("Does not match pregenerated outputs")

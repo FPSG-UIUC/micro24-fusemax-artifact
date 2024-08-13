@@ -11,9 +11,9 @@ import seaborn as sns
 
 from src.utils.csv_utils import CSVUtils
 
-def load_data(col, kernel="attn", raw_cb=None, data_cb=None, skip=set(), results_dir="../outputs/generated/default"):
+def load_data(col, kernel="attn", raw_cb=None, data_cb=None, skip=set(), experiment_dir="../outputs/generated/default"):
 
-    data_dir = Path(results_dir)
+    results_dir = Path(experiment_dir) / "results"
 
     accels = {"unfused": "Unfused", "flat": "FLAT", "cascade": "+Cascade", "arch": "+Architecture", "binding": "+Binding"}
     archs = {"unfused": "flat", "flat": "flat", "cascade": "flat", "arch": "proposal", "binding": "proposal"}
@@ -25,13 +25,13 @@ def load_data(col, kernel="attn", raw_cb=None, data_cb=None, skip=set(), results
         if accel in skip:
             continue
 
-        reader = CSVUtils(data_dir / f"attn-{accel}.csv")
+        reader = CSVUtils(results_dir / f"attn-{accel}.csv")
 
         attn_csv = reader.get_all()
         i = attn_csv[0].index(col)
 
         if kernel == "end2end":
-            reader = CSVUtils(data_dir / f"end2end-{archs[accel]}.csv")
+            reader = CSVUtils(results_dir / f"end2end-{archs[accel]}.csv")
             end2end_csv = reader.get_all()
             k = end2end_csv[0].index(col)
 
@@ -82,8 +82,10 @@ def load_data(col, kernel="attn", raw_cb=None, data_cb=None, skip=set(), results
 
     return pd.DataFrame.from_dict(data)
 
-def load_breakdown(results_dir):
-    results_dir = Path(results_dir)
+def load_breakdown(experiment_dir):
+    experiment_dir = Path(experiment_dir)
+    results_dir = experiment_dir / "results"
+
 
     accels = {"flat": "FL", "cascade": "+C", "arch": "+A", "binding": "+B"}
     einsums = {"flat": ["QK", "AV"], "cascade": ["QK", "SLNV"], "arch": ["QK", "LM", "SLN", "SLD", "SLNV"], "binding": ["QK", "LM", "SLN", "SLD", "SLNV"]}
@@ -113,8 +115,8 @@ def load_breakdown(results_dir):
     return pd.DataFrame.from_dict(data)
 
 
-def draw_bar_graph(data, ylabel, fn, ymax=None, results_dir="../outputs/generated/default"):
-    figs_dir = Path(results_dir) / "figs"
+def draw_bar_graph(data, ylabel, fn, ymax=None, experiment_dir="../outputs/generated/default"):
+    figs_dir = Path(experiment_dir) / "figs"
     figs_dir.mkdir(parents=True, exist_ok=True)
 
     # Increase the font size
@@ -169,11 +171,11 @@ def draw_bar_graph(data, ylabel, fn, ymax=None, results_dir="../outputs/generate
 
     plt.savefig(figs_dir / f"{fn}.pdf", format="pdf", bbox_inches="tight")
 
-def draw_breakdown(results_dir):
-    figs_dir = Path(results_dir) / "figs"
+def draw_breakdown(experiment_dir):
+    figs_dir = Path(experiment_dir) / "figs"
     figs_dir.mkdir(parents=True, exist_ok=True)
 
-    df = load_breakdown(results_dir)
+    df = load_breakdown(experiment_dir)
 
     # Increase the font size
     fontsize = 20
@@ -231,10 +233,12 @@ def draw_breakdown(results_dir):
 
     plt.savefig(figs_dir / "fig7.pdf", format="pdf", bbox_inches="tight")
 
-def draw_pareto(results_dir="../outputs/generated/default"):
-    results_dir = Path(results_dir)
+def draw_pareto(experiment_dir="../outputs/generated/default"):
+    experiment_dir = Path(experiment_dir)
 
-    figs_dir = Path(results_dir) / "figs"
+    results_dir = Path(experiment_dir) / "results"
+
+    figs_dir = Path(experiment_dir) / "figs"
     figs_dir.mkdir(parents=True, exist_ok=True)
 
     df = pd.read_csv(results_dir / "pareto.csv")
