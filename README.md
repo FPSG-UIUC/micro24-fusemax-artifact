@@ -41,7 +41,7 @@ cp docker-compose.yaml.template docker-compose.yaml
 
 Edit the `docker-compose.yaml` with the appropriate `USER_UID` and `USER_GID`.
 
-#### Step 2: Pull the Docker Image
+#### Step 2: Pull the Docker image
 
 We provide two options for obtaining the docker image. Please choose one of the
 options listed below.
@@ -52,12 +52,14 @@ options listed below.
 docker-compose pull
 ```
 
-If this does nothing, proceed to Option 2.
-
-##### Option 2: Use `docker pull`
+##### Option 2: Build the image from source
 
 ```bash
-docker pull timeloopaccelergy/timeloop-accelergy-pytorch:latest-amd64
+cd ./setup/common/accelergy-timeloop-infrastructure
+make build-amd64
+cd ../../docker/timeloop-accelergy-pytorch
+make build-amd64
+cd ../../..
 ```
 
 #### Step 3: Start the container
@@ -183,6 +185,56 @@ cd ../..
 
 Note: Because paths are relative, this script *must* be run inside the `src` directory.
 
-Generated figures can be found in `workspace/outputs/generated/figs/`.
+Generated figures can be found in `workspace/outputs/generated/default/figs/`.
 Expected outputs can be found in Figures 6-12 of the paper or in
 `workspace/outputs/pregenerated/figs/`.
+
+## Directory Structure
+
+The following is a guide to the director structure for this repository, with
+descriptions accompanying each leaf folder.
+
+```
+micro24-fusemax-artifact
+├── docker-compose.yaml.template
+├── README.md
+├── setup
+│   ├── common
+│   │   ├── accelergy-timeloop-infrastructure
+│   │   │   └── <Timeloop / Accelergy Source>
+│   │   └── custom_pc_2021
+│   │       └── <Custom Accelergy Tables>
+│   ├── docker
+│   │   └── timeloop-accelergy-pytorch
+│   │       └── <Docker Source>
+│   └── native
+│       └── requirements.txt
+└── workspace
+    ├── inputs
+    │   ├── timeloop-accelergy-exercises
+    │   └── yamls
+    │       └── <Timeloop / Accelergy Input YAMLs>
+    ├── notebooks
+    │   ├── check.ipynb
+    │   └── figs.ipynb
+    ├── outputs
+    │   ├── pregenerated
+    │   │   ├── figs
+    │   │   │   └── <Figures 6-12>
+    │   │   └── results
+    │   │       └── <Raw CSVs used to generate Figures>
+    │   └── pregenerated-check
+    │       ├── accelergy_area
+    │       │   └── <Expected outputs for Accelergy area check>
+    │       ├── accelergy_energy
+    │       │   └── <Expected outputs for Accelergy energy check>
+    │       └── timeloop
+    │           └── <Expected outputs for Timeloop check>
+    └── src
+        ├── accel
+        │   └── <Timeloop / Accelergy models of the various accelerator configurations>
+        ├── scripts
+        │   └── <Scripts to check installation / run experiments>
+        └── utils
+            └── <Scripts for reading Timeloop outputs, drawing graphs, etc.>
+```

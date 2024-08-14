@@ -11,8 +11,9 @@
 #    1) Copy this template file to docker-compose.yaml
 #    2) In the new file, change USER_UID and USER_GID to the owner of your files (echo $UID )
 #    3) [Optional] Change public port, .e.g, 8888:8888 -> 8890:8888
-#    4) [Optional] Uncomment JUPYTER_SWITCHES line to disable passwords
-#    4) Run the following command:
+#    4) [Optional] Uncomment and edit TZ to create experiments with local timezone
+#    5) [Optional] Uncomment JUPYTER_SWITCHES line to disable passwords
+#    6) Run the following command:
 #
 #        % docker-compose up
 #
@@ -33,4 +34,5 @@ services:
     environment:
       - USER_UID=1000
       - USER_GID=1000
+#      - TZ=America/New_York
 #      - JUPYTER_SWITCHES=--NotebookApp.token='' --NotebookApp.password=''

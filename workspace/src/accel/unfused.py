@@ -25,7 +25,7 @@ class Unfused(Cascade):
         self.add_data_locs_mapper(output_dir)
         stats = self.build_accelergy_stats_general(output_dir, "flat", source="mapper")
 
-        ss_stats = self.computed["softmax_accel"].build_accelergy_stats(output_dir + "/ss")
+        ss_stats = self.computed["softmax_accel"].build_accelergy_stats(output_dir / "ss")
 
         self.combine_stats(stats, ss_stats)
         return stats
@@ -50,7 +50,7 @@ class Unfused(Cascade):
         return True
 
     def eval_components(self, output_dir, run_mapper=True):
-        args = ("QK", output_dir + "/qk")
+        args = ("QK", output_dir / "qk")
         self.build_input(*args)
         if run_mapper:
             self.run_mapper(*args, "../inputs/yamls/proposal/arch-2d.yaml", spec_callback=self.__timeloop_callback)
@@ -58,7 +58,7 @@ class Unfused(Cascade):
         qk_traffic = sum(self.collect_mem_traffic(*args, "L3", source="mapper"))
         qk_mem_lat, qk_comp_lat = self.collect_latency(*args, qk_traffic, source="mapper")
 
-        args = ("AV", output_dir + "/av")
+        args = ("AV", output_dir / "av")
         self.build_input(*args)
         if run_mapper:
             self.run_mapper(*args, "../inputs/yamls/proposal/arch-2d.yaml", spec_callback=self.__timeloop_callback)
@@ -69,7 +69,7 @@ class Unfused(Cascade):
         ss = StableSoftmax(self.model, self.seq_len, False, avail_buf=self.L3_depth * self.L3_width)
         self.computed["softmax_accel"] = ss
         ss_traffic, ss_mem_lat, ss_comp_lat = ss.eval_components(
-            output_dir + "/ss")
+            output_dir / "ss")
 
         traffic = qk_traffic + av_traffic + ss_traffic
         self.computed["traffic"] = traffic

@@ -32,13 +32,13 @@ class MatMul(Cascade):
             self.eval(output_dir, run_mapper=run_mapper)
 
         # Prepare K and V generation
-        if os.path.exists(output_dir + "/k"):
-            shutil.rmtree(output_dir + "/k")
-        shutil.copytree(output_dir + "/q", output_dir + "/k")
+        if os.path.exists(output_dir / "k"):
+            shutil.rmtree(output_dir / "k")
+        shutil.copytree(output_dir / "q", output_dir / "k")
 
-        if os.path.exists(output_dir + "/v"):
-            shutil.rmtree(output_dir + "/v")
-        shutil.copytree(output_dir + "/q", output_dir + "/v")
+        if os.path.exists(output_dir / "v"):
+            shutil.rmtree(output_dir / "v")
+        shutil.copytree(output_dir / "q", output_dir / "v")
 
         self.add_data_locs_mapper(output_dir)
 
@@ -98,7 +98,7 @@ class MatMul(Cascade):
     def eval(self, output_dir, run_mapper):
         results = {}
         for einsum in ["Q", "Z", "FFN1", "FFN2"]:
-            results[einsum] = self.eval_einsum(einsum, output_dir + "/" + einsum.lower(), run_mapper=run_mapper)
+            results[einsum] = self.eval_einsum(einsum, output_dir / einsum.lower(), run_mapper=run_mapper)
 
         results["K"] = results["Q"]
         results["V"] = results["Q"]

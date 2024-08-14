@@ -164,6 +164,7 @@ cython_debug/
 # Other
 *.swp
 workspace/outputs/generated/
+workspace/outputs/generated-check/
 docker-compose.yaml
 
 # Ignore emacs backup files
