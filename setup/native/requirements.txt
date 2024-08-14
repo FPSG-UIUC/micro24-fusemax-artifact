@@ -3,3 +3,4 @@ matplotlib==3.7.5
 pandas==2.0.3
 seaborn==0.13.2
 ipywidgets==8.1.3
+tqdm==4.66.5

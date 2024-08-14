@@ -128,7 +128,7 @@ def draw_bar_graph(data, ylabel, fn, ymax=None, experiment_dir="../outputs/gener
     if "FuseMax" in accels:
         accels.remove("FuseMax")
         accels.append("FuseMax")
-        
+
     # Graph
     sns.set_style('whitegrid')
     g = sns.catplot(x="seq_len", hue="Accelerator", col="model", y="data",
@@ -171,7 +171,7 @@ def draw_bar_graph(data, ylabel, fn, ymax=None, experiment_dir="../outputs/gener
 
     plt.savefig(figs_dir / f"{fn}.pdf", format="pdf", bbox_inches="tight")
 
-def draw_breakdown(experiment_dir):
+def draw_breakdown(experiment_dir="../outputs/generated/default"):
     figs_dir = Path(experiment_dir) / "figs"
     figs_dir.mkdir(parents=True, exist_ok=True)
 
