@@ -1,5 +1,7 @@
 # MICRO24 FuseMax Artifact
 
+[![DOI](https://zenodo.org/badge/839495574.svg)](https://zenodo.org/doi/10.5281/zenodo.13377042)
+
 This repository provides the evaluation setups for the MICRO24 artifact
 evaluation for the paper *FuseMax: Leveraging Extended Einsums to Optimize
 Attention Accelerator Design*. We provide a docker environment and Jupyter
