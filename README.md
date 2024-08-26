@@ -92,7 +92,7 @@ sudo apt-get install python3.8-venv
 Create the environment:
 
 ```bash
-python -m venv env
+python3 -m venv env
 source env/bin/activate
 ```
 
@@ -135,7 +135,7 @@ Check that all imports work as desired.
 
 ```bash
 cd workspace/src
-python scripts/check.py
+python3 scripts/check.py
 cd ../..
 ```
 
@@ -179,7 +179,7 @@ The installation checks can also be run via `workspace/notebooks/check.ipynb`.
 
 ```bash
 cd workspace/src
-python scripts/run.py
+python3 scripts/run.py
 cd ../..
 ```
 
